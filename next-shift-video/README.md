@@ -85,11 +85,31 @@ pay again for scenes whose text changed.
 | `elevenlabs` | Best for a documentary male voice | subscription; check current plans | `ELEVENLABS_API_KEY` + `voice.voice_id` |
 | `file` | Your own voice (strongest brand asset long term) | your time | put `recordings/<scene_id>.wav` in the project |
 
-Example `voice` blocks:
+`voice` holds one settings block per provider; `provider` picks the active one. Each block can
+override `pronunciations` (TTS-only spelling fixes; subtitles keep the original text):
 ```json
-{"provider": "openai", "voice": "onyx", "model": "gpt-4o-mini-tts"}
-{"provider": "elevenlabs", "voice_id": "<from your voice library>", "stability": 0.55}
+"voice": {
+  "provider": "elevenlabs",
+  "espeak":     {"voice": "en-us+m3", "wpm": 148},
+  "elevenlabs": {"voice_id": "<from nsv voices>", "model": "eleven_multilingual_v2",
+                 "stability": 0.5, "similarity": 0.75, "style": 0.1, "speed": 1.0, "seed": 7,
+                 "pronunciations": {"CoWoS": "co-woss"}},
+  "openai":     {"voice": "onyx", "model": "gpt-4o-mini-tts"}
+}
 ```
+
+### ElevenLabs workflow
+```bash
+$N voices                                          # voices on your account + remaining quota
+$N audition <slug> --scene s01 --voices ID1 ID2 ID3   # same line, several voices -> output/auditions/*.mp3
+# put the winner in voice.elevenlabs.voice_id, set voice.provider to "elevenlabs"
+$N voice <slug> --estimate                         # characters that would be billed (cached scenes are free)
+$N voice <slug>                                    # synthesize (refuses above --max-chars, default 15,000)
+```
+What the integration adds on top of plain TTS:
+- **Word-accurate subtitles.** It uses the `with-timestamps` endpoint, so cues follow the actual speech.
+- **Continuity across cuts.** Each scene is sent with the neighbouring scenes' text (`previous_text`/`next_text`), so intonation flows instead of restarting.
+- **Caching.** Only scenes whose text or voice settings changed are re-billed. A 7-minute script is about 5,500 characters.
 > In the Claude Code cloud sandbox, the API hosts (`api.openai.com`, `api.elevenlabs.io`) have to be
 > allowed in the environment's network settings and the key added as a secret. Locally, an env var is enough.
 
@@ -116,8 +136,8 @@ About 75 ms per 1080p frame per core. A 7.5-minute video (~13,000 frames) render
 on 4 cores. Frames that haven't changed are reused.
 
 ## Known limits (honest list)
-- **Subtitle and visual sync is proportional within each scene**, not word-accurate. Next step: use
-  ElevenLabs' timestamp endpoint or forced alignment for word-level cues.
+- **Subtitle timing is word-accurate only with ElevenLabs** (character timestamps). Other providers fall back to
+  proportional timing within each scene. Visual reveals are still timed per scene, not per word.
 - **No maps yet.** Maps need licensed or public-domain geodata (e.g. Natural Earth). Planned as a `map` component.
 - **No 9:16 Shorts yet.** Components are written for 16:9. Planned: a `brand.VERTICAL` layout plus a cut-down storyboard.
 - **QC can't judge quality**: whether the hook works, whether the argument is right, whether the voice sounds

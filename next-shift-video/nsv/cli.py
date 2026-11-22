@@ -7,7 +7,9 @@
     nsv approve <slug> research|script --by NAME
     nsv status <slug>
     nsv still <slug> <scene_id> [--at 0.8]   PNG preview of one scene (fast iteration)
-    nsv voice <slug> [--provider espeak|openai|elevenlabs|file] [--force]
+    nsv voice <slug> [--provider espeak|openai|elevenlabs|file] [--force] [--estimate] [--max-chars N]
+    nsv voices                           list ElevenLabs voices + remaining quota
+    nsv audition <slug> --voices ID [ID ...] [--scene s01]   compare voices by ear
     nsv render <slug> [--draft [--full-res]] [--provider ...] [--burn-subs]
     nsv thumbnail <slug>
     nsv qc <slug>
@@ -113,16 +115,61 @@ def cmd_status(a):
         print(f"{f:14s} {'yes' if p.exists() else '-'}")
 
 
-def _voice_and_timeline(pr, provider=None, force=False):
+def _voice_and_timeline(pr, provider=None, force=False, max_chars=None):
     from . import audio, timeline
-    durs, prov = audio.synthesize(pr, provider, force)
+    durs, prov = audio.synthesize(pr, provider, force, max_chars)
     tl, total = timeline.build(pr, durs)
     print(f"narration via {prov}: {len(durs)} clips, runtime {total / 60:.2f} min")
     return tl, total, prov
 
 
 def cmd_voice(a):
-    _voice_and_timeline(_p(a.slug), a.provider, a.force)
+    from . import audio
+    pr = _p(a.slug)
+    if a.estimate:
+        prov, _, _, todo, cached = audio.plan(pr, a.provider, a.force)
+        print(f"{prov}: {len(todo)} scenes / {sum(len(t[1]) for t in todo):,} characters to synthesize, "
+              f"{len(cached)} cached")
+        return
+    _voice_and_timeline(pr, a.provider, a.force, a.max_chars)
+
+
+def cmd_voices(a):
+    """List ElevenLabs voices on the account, plus remaining character quota."""
+    from . import audio
+    try:
+        sub = audio.el_get("/user/subscription")
+        print(f"plan: {sub.get('tier')} | used {sub.get('character_count'):,} of "
+              f"{sub.get('character_limit'):,} characters this period")
+    except audio.TTSError as e:
+        print(f"(quota unavailable: {e})")
+    for v in audio.el_get("/voices")["voices"]:
+        lab = v.get("labels", {})
+        print(f"{v['voice_id']}  {v['name'][:28]:28s} {v.get('category', ''):10s} "
+              f"{lab.get('gender', ''):7s} {lab.get('accent', ''):12s} {lab.get('age', ''):12s} "
+              f"{lab.get('use_case') or lab.get('use case') or lab.get('descriptive', '')}")
+
+
+def cmd_audition(a):
+    """Render the same scene with several ElevenLabs voices so a human can choose by ear."""
+    from . import audio
+    pr = _p(a.slug)
+    sb = pr.storyboard
+    sc = next((s for s in sb["scenes"] if s["id"] == a.scene), None)
+    if not sc or not sc.get("narration"):
+        sys.exit(f"scene {a.scene} has no narration")
+    _, cfg, pron = audio.voice_config(sb, "elevenlabs")
+    d = pr.out / "auditions"
+    d.mkdir(exist_ok=True)
+    text = audio.speakable(sc["narration"], pron)
+    print(f"{len(text)} characters per voice, {len(text) * len(a.voices):,} total")
+    for vid in a.voices:
+        c = dict(cfg, voice_id=vid)
+        wav = pr.build / f"audition_{vid}.wav"
+        audio.tts_elevenlabs(text, wav, c)
+        mp3 = d / f"{a.scene}_{vid}.mp3"
+        audio.run(["ffmpeg", "-y", "-v", "error", "-i", str(wav), "-b:a", "160k", str(mp3)])
+        print(mp3)
 
 
 def cmd_still(a):
@@ -154,7 +201,7 @@ def cmd_render(a):
     pr = _p(a.slug)
     if not a.draft:
         pr.require_gates()
-    tl, total, prov = _voice_and_timeline(pr, a.provider)
+    tl, total, prov = _voice_and_timeline(pr, a.provider, max_chars=a.max_chars)
     if prov == "espeak" and not a.draft:
         print("WARNING: espeak is a robotic placeholder voice. Do not publish this narration.")
     srt, cues = timeline.subtitles(pr, tl)
@@ -197,14 +244,29 @@ def main(argv=None):
     s.add_argument("--at", type=float, default=0.8); s.set_defaults(f=cmd_still)
     provs = ["espeak", "openai", "elevenlabs", "file"]
     s = sub.add_parser("voice"); s.add_argument("slug"); s.add_argument("--provider", choices=provs)
-    s.add_argument("--force", action="store_true"); s.set_defaults(f=cmd_voice)
+    s.add_argument("--force", action="store_true")
+    s.add_argument("--estimate", action="store_true", help="only report characters that would be billed")
+    s.add_argument("--max-chars", type=int, default=15000, help="refuse to synthesize more than this")
+    s.set_defaults(f=cmd_voice)
+    s = sub.add_parser("voices"); s.set_defaults(f=cmd_voices)
+    s = sub.add_parser("audition"); s.add_argument("slug"); s.add_argument("--scene", default="s01")
+    s.add_argument("--voices", nargs="+", required=True); s.set_defaults(f=cmd_audition)
     s = sub.add_parser("render"); s.add_argument("slug"); s.add_argument("--draft", action="store_true")
     s.add_argument("--provider", choices=provs); s.add_argument("--workers", type=int)
+    s.add_argument("--max-chars", type=int, default=15000)
     s.add_argument("--burn-subs", action="store_true")
     s.add_argument("--full-res", action="store_true", help="draft at 1080p/30fps (still watermarked)")
     s.set_defaults(f=cmd_render)
     a = ap.parse_args(argv)
-    a.f(a)
+    from .audio import TTSError
+    try:
+        a.f(a)
+    except TTSError as e:
+        msg = str(e)
+        if "401" in msg or "invalid_api_key" in msg:
+            msg += ("\n-> The API key was rejected. Locally: check ELEVENLABS_API_KEY. In a Claude Code cloud "
+                    "environment: re-enter the key for api.elevenlabs.io under the environment's network secrets.")
+        sys.exit(f"narration error: {msg}")
 
 
 if __name__ == "__main__":

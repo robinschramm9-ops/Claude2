@@ -5,9 +5,25 @@
  "thesis": "In the AI race, the most dependable winner is not the company with the best model or even the best chip design, but the company that manufactures almost all of them: whoever wins, TSMC gets paid. And beneath TSMC sits a second chokepoint, ASML.",
  "voice": {
   "provider": "espeak",
-  "voice": "en-us+m3",
-  "wpm": 148,
-  "pitch": 34
+  "espeak": {
+   "voice": "en-us+m3",
+   "wpm": 148,
+   "pitch": 34
+  },
+  "elevenlabs": {
+   "voice_id": "",
+   "model": "eleven_multilingual_v2",
+   "stability": 0.5,
+   "similarity": 0.75,
+   "style": 0.1,
+   "speed": 1.0,
+   "seed": 7,
+   "pronunciations": {
+    "THE NEXT SHIFT": "The Next Shift",
+    "CoWoS": "co-woss",
+    "High-NA": "High N.A."
+   }
+  }
  },
  "pronunciations": {
   "THE NEXT SHIFT": "The Next Shift",

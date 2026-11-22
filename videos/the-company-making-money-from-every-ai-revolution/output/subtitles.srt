@@ -54,7 +54,7 @@ In
 2025, it took in about 122 billion dollars in revenue, up 36 percent in a single
 
 13
-00:00:47,912 --> 00:00:48,337
+00:00:47,912 --> 00:00:48,412
 year.
 
 14
@@ -517,7 +517,7 @@ The
 AI race will produce winners and losers among the companies we talk about every
 
 117
-00:07:05,320 --> 00:07:05,516
+00:07:05,320 --> 00:07:05,820
 day.
 
 118

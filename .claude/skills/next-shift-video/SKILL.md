@@ -94,8 +94,12 @@ Any later edit to research.json or storyboard.json invalidates the approval auto
 - Unapproved preview (watermarked): `nsv render <slug> --draft` (fast, 540p) or `--draft --full-res`.
 - Final (requires both approvals): `nsv render <slug>` -> `output/video.mp4`, `thumbnail.png`,
   `subtitles.srt`, `qc_report.md`. Add `--burn-subs` only for platforms without caption upload.
-- Narration provider is set in `storyboard.voice.provider` or `--provider`:
-  `espeak` (offline placeholder, never publish), `openai`, `elevenlabs`, `file` (human VO in `recordings/<scene_id>.wav`).
+- Narration: `storyboard.voice.provider` (or `--provider`) picks one of the settings blocks in `voice`:
+  `espeak` (offline placeholder, never publish), `elevenlabs` (production default), `openai`, `file`
+  (human VO in `recordings/<scene_id>.wav`).
+- ElevenLabs costs money. Before synthesizing, run `nsv voice <slug> --estimate` and tell the user the
+  character count. Never raise `--max-chars` without their OK. To choose a voice: `nsv voices`, then
+  `nsv audition <slug> --voices ...`, and let the user pick by ear. Never pick the brand voice yourself.
 
 ### Stage 4 - QC
 Read `output/qc_report.md`. Fix every BLOCKER. Treat warnings as editorial notes:

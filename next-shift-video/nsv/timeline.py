@@ -88,18 +88,47 @@ def _ts(s):
     return f"{h:02d}:{m:02d}:{sec:02d},{ms:03d}"
 
 
+def _aligned_times(project, sc, chunks):
+    """Use TTS character timestamps (ElevenLabs) for exact cue timing, if available."""
+    ap = project.build / "vo" / f"{sc['id']}.align.json"
+    if not ap.exists():
+        return None
+    al = json.loads(ap.read_text())
+    orig, n_sp = sc["narration"], len(al["starts"])
+    if n_sp < 2:
+        return None
+    # map original-char index -> spoken-text index (pronunciation fixes change lengths slightly)
+    scale = (n_sp - 1) / max(len(orig) - 1, 1)
+    out, cur = [], 0
+    for c in chunks:
+        i0 = orig.find(c.split()[0], cur)
+        i0 = cur if i0 < 0 else i0
+        i1 = min(len(orig) - 1, i0 + len(c) - 1)
+        cur = i1 + 1
+        out.append((al["starts"][round(i0 * scale)], al["ends"][round(i1 * scale)]))
+    return out
+
+
 def subtitles(project, tl) -> tuple[str, list]:
     cues = []
     for sc in tl:
         if not sc["vo_start"]:
             continue
         chunks = _chunks(sc["narration"])
-        total = sum(len(c) for c in chunks) or 1
-        t = sc["vo_start"]
-        for c in chunks:
-            d = sc["vo_dur"] * len(c) / total
-            cues.append({"start": t, "end": t + d - 0.04, "text": _lines(c)})
-            t += d
+        timed = _aligned_times(project, sc, chunks)
+        if timed is None:  # proportional fallback
+            total = sum(len(c) for c in chunks) or 1
+            t, timed = 0.0, []
+            for c in chunks:
+                d = sc["vo_dur"] * len(c) / total
+                timed.append((t, t + d - 0.04))
+                t += d
+        for c, (a, b) in zip(chunks, timed):
+            cues.append({"start": sc["vo_start"] + a, "end": sc["vo_start"] + b, "text": _lines(c)})
+    for a, b in zip(cues, cues[1:]):  # close tiny gaps (no flicker), never overlap
+        if b["start"] - a["end"] < 0.6:
+            a["end"] = b["start"] - 0.04
+        a["end"] = max(a["end"], a["start"] + 0.5)
     srt = "\n".join(f"{i + 1}\n{_ts(c['start'])} --> {_ts(c['end'])}\n{c['text']}\n" for i, c in enumerate(cues))
     path = project.out / "subtitles.srt"
     path.write_text(srt)

@@ -11,8 +11,10 @@ import os
 import re
 import shutil
 import subprocess
+import urllib.error
 import urllib.request
 import wave
+from pathlib import Path
 
 import numpy as np
 
@@ -59,7 +61,7 @@ DOC_STYLE = ("Calm, authoritative documentary narrator. Measured pace, low warm 
              "clear emphasis on numbers, short natural pauses at full stops. Never salesy.")
 
 
-def tts_espeak(text, out, voice):
+def tts_espeak(text, out, voice, ctx=None):
     if not shutil.which("espeak-ng"):
         raise RuntimeError("espeak-ng not installed (apt-get install espeak-ng)")
     raw = str(out) + ".raw.wav"
@@ -69,16 +71,26 @@ def tts_espeak(text, out, voice):
     os.remove(raw)
 
 
-def _http(url, body, headers):
-    req = urllib.request.Request(url, data=json.dumps(body).encode(), headers=headers, method="POST")
-    with urllib.request.urlopen(req, timeout=120) as r:
-        return r.read()
+class TTSError(RuntimeError):
+    pass
 
 
-def tts_openai(text, out, voice):
-    key = os.environ.get("OPENAI_API_KEY")
-    if not key:
-        raise RuntimeError("OPENAI_API_KEY is not set")
+def _http(url, body, headers, method="POST"):
+    data = json.dumps(body).encode() if body is not None else None
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    try:
+        with urllib.request.urlopen(req, timeout=180) as r:
+            return r.read()
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode(errors="replace")[:400]
+        raise TTSError(f"{url.split('?')[0]} -> HTTP {e.code}: {detail}") from None
+    except urllib.error.URLError as e:
+        raise TTSError(f"cannot reach {url.split('/')[2]}: {e.reason} "
+                       f"(is the host allowed in this environment's network settings?)") from None
+
+
+def tts_openai(text, out, voice, ctx=None):
+    key = os.environ.get("OPENAI_API_KEY", "proxy-injected")  # a network proxy may inject the real key
     audio = _http("https://api.openai.com/v1/audio/speech",
                   {"model": voice.get("model", "gpt-4o-mini-tts"), "voice": voice.get("voice", "onyx"),
                    "input": text, "instructions": voice.get("style", DOC_STYLE), "response_format": "wav"},
@@ -89,28 +101,53 @@ def tts_openai(text, out, voice):
     os.remove(raw)
 
 
-def tts_elevenlabs(text, out, voice):
-    key = os.environ.get("ELEVENLABS_API_KEY")
-    if not key:
-        raise RuntimeError("ELEVENLABS_API_KEY is not set")
+EL_API = "https://api.elevenlabs.io/v1"
+
+
+def _el_headers():
+    # Locally: export ELEVENLABS_API_KEY. In a Claude Code cloud environment the proxy injects it.
+    return {"xi-api-key": os.environ.get("ELEVENLABS_API_KEY", "proxy-injected"),
+            "Content-Type": "application/json"}
+
+
+def el_get(path):
+    return json.loads(_http(f"{EL_API}{path}", None, _el_headers(), method="GET"))
+
+
+def tts_elevenlabs(text, out, voice, ctx=None):
+    """ElevenLabs with character timestamps -> word-accurate subtitles.
+    previous_text/next_text give the model the neighbouring scenes so prosody flows across cuts."""
+    import base64
     vid = voice.get("voice_id")
     if not vid:
-        raise RuntimeError("voice.voice_id is required for ElevenLabs (pick one in your voice library)")
-    audio = _http(f"https://api.elevenlabs.io/v1/text-to-speech/{vid}?output_format=mp3_44100_128",
-                  {"text": text, "model_id": voice.get("model", "eleven_multilingual_v2"),
-                   "voice_settings": {"stability": voice.get("stability", 0.55),
-                                      "similarity_boost": voice.get("similarity", 0.75),
-                                      "style": voice.get("style_exaggeration", 0.15)}},
-                  {"xi-api-key": key, "Content-Type": "application/json", "Accept": "audio/mpeg"})
+        raise TTSError("voice.elevenlabs.voice_id is required (run: nsv voices)")
+    ctx = ctx or {}
+    body = {"text": text, "model_id": voice.get("model", "eleven_multilingual_v2"),
+            "voice_settings": {"stability": voice.get("stability", 0.5),
+                               "similarity_boost": voice.get("similarity", 0.75),
+                               "style": voice.get("style", 0.1),
+                               "use_speaker_boost": True,
+                               "speed": voice.get("speed", 1.0)}}
+    if ctx.get("previous_text"):
+        body["previous_text"] = ctx["previous_text"][-500:]
+    if ctx.get("next_text"):
+        body["next_text"] = ctx["next_text"][:500]
+    if voice.get("seed") is not None:
+        body["seed"] = int(voice["seed"])
+    res = json.loads(_http(f"{EL_API}/text-to-speech/{vid}/with-timestamps?output_format=mp3_44100_128",
+                           body, _el_headers()))
     raw = str(out) + ".raw.mp3"
-    open(raw, "wb").write(audio)
-    to_wav(raw, out)
+    open(raw, "wb").write(base64.b64decode(res["audio_base64"]))
+    al = res.get("alignment") or res.get("normalized_alignment")
+    starts, ends = al["character_start_times_seconds"], al["character_end_times_seconds"]
+    t0 = max(0.0, starts[0] - 0.04)               # trim leading silence, keep timings exact
+    t1 = ends[-1] + 0.25
+    run(["ffmpeg", "-y", "-v", "error", "-ss", f"{t0:.3f}", "-to", f"{t1:.3f}", "-i", raw,
+         "-ar", str(SR), "-ac", "1", "-sample_fmt", "s16", str(out)])
     os.remove(raw)
-
-
-def tts_file(text, out, voice):
-    """Human-recorded narration: put build/vo/<scene_id>.wav (any format) in voice.dir."""
-    raise RuntimeError("provider 'file' is resolved in synthesize()")
+    align = {"text": "".join(al["characters"]),
+             "starts": [round(x - t0, 3) for x in starts], "ends": [round(x - t0, 3) for x in ends]}
+    Path(str(out).replace(".wav", ".align.json")).write_text(json.dumps(align))
 
 
 PROVIDERS = {"espeak": tts_espeak, "openai": tts_openai, "elevenlabs": tts_elevenlabs}
@@ -123,32 +160,72 @@ def speakable(text, pron: dict):
     return text
 
 
-def synthesize(project, provider: str | None = None, force=False):
-    """Create one wav per scene; cached by (provider, voice, text). Returns {scene_id: seconds}."""
+def voice_config(sb, provider=None):
+    """storyboard.voice = {"provider": ..., "<provider>": {...settings...}}.
+    A flat legacy dict (settings at top level) still works."""
+    v = sb.get("voice", {})
+    provider = provider or v.get("provider", "espeak")
+    cfg = dict(v.get(provider, {})) if isinstance(v.get(provider), dict) else \
+        {k: x for k, x in v.items() if k != "provider" and not isinstance(x, dict)}
+    pron = cfg.pop("pronunciations", sb.get("pronunciations", {}))
+    return provider, cfg, pron
+
+
+def plan(project, provider=None, force=False):
+    """Which scenes need (re)synthesis and how many characters that costs."""
     sb = project.storyboard
-    voice = dict(sb.get("voice", {}))
-    provider = provider or voice.get("provider", "espeak")
-    pron = sb.get("pronunciations", {})
+    provider, cfg, pron = voice_config(sb, provider)
     vo = project.build / "vo"
-    vo.mkdir(exist_ok=True)
-    durs = {}
+    todo, cached = [], []
     for sc in sb["scenes"]:
         text = sc.get("narration", "").strip()
         if not text:
             continue
-        out = vo / f"{sc['id']}.wav"
-        if provider == "file":
+        sp = speakable(text, pron)
+        key = hashlib.sha256(json.dumps([provider, cfg, sp]).encode()).hexdigest()[:12]
+        stamp, out = vo / f"{sc['id']}.key", vo / f"{sc['id']}.wav"
+        fresh = out.exists() and stamp.exists() and stamp.read_text() == key
+        (cached if fresh and not force else todo).append((sc["id"], sp, key))
+    return provider, cfg, pron, todo, cached
+
+
+def synthesize(project, provider: str | None = None, force=False, max_chars=None, log=print):
+    """Create one wav per scene; cached by (provider, settings, text). Returns ({scene_id: seconds}, provider)."""
+    sb = project.storyboard
+    vo = project.build / "vo"
+    vo.mkdir(exist_ok=True)
+    provider, cfg, pron, todo, cached = plan(project, provider, force)
+    if provider == "file":
+        for sc in sb["scenes"]:
+            if not sc.get("narration", "").strip():
+                continue
             src = next((p for p in (project.dir / "recordings").glob(f"{sc['id']}.*")), None)
             if not src:
                 raise SystemExit(f"provider=file: missing recordings/{sc['id']}.*")
-            to_wav(src, out)
-        else:
-            key = hashlib.sha256(json.dumps([provider, voice, speakable(text, pron)]).encode()).hexdigest()[:12]
-            stamp = vo / f"{sc['id']}.key"
-            if force or not out.exists() or not stamp.exists() or stamp.read_text() != key:
-                PROVIDERS[provider](speakable(text, pron), out, voice)
-                stamp.write_text(key)
-        durs[sc["id"]] = len(read_wav(out)) / SR
+            to_wav(src, vo / f"{sc['id']}.wav")
+            (vo / f"{sc['id']}.align.json").unlink(missing_ok=True)
+    else:
+        chars = sum(len(sp) for _, sp, _ in todo)
+        log(f"{provider}: {len(todo)} scenes to synthesize ({chars:,} characters), {len(cached)} cached")
+        if max_chars is not None and chars > max_chars:
+            raise SystemExit(f"refusing to spend {chars:,} characters (> --max-chars {max_chars:,}). "
+                             f"Raise the limit if this is intended.")
+        texts = {s["id"]: speakable(s.get("narration", "").strip(), pron) for s in sb["scenes"]}
+        order = [s["id"] for s in sb["scenes"] if texts[s["id"]]]
+        for k, (sid, sp, key) in enumerate(todo):
+            i = order.index(sid)
+            ctx = {"previous_text": texts[order[i - 1]] if i > 0 else "",
+                   "next_text": texts[order[i + 1]] if i + 1 < len(order) else ""}
+            out = vo / f"{sid}.wav"
+            (vo / f"{sid}.align.json").unlink(missing_ok=True)
+            PROVIDERS[provider](sp, out, cfg, ctx)
+            (vo / f"{sid}.key").write_text(key)
+            if len(todo) > 3:
+                log(f"  {k + 1}/{len(todo)} {sid}")
+    durs = {}
+    for sc in sb["scenes"]:
+        if sc.get("narration", "").strip():
+            durs[sc["id"]] = len(read_wav(vo / f"{sc['id']}.wav")) / SR
     return durs, provider
 
 

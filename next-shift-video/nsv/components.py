@@ -244,9 +244,12 @@ def timeline(p, t, d):
         up = i % 2 == 0
         ty = y - 60 if up else y + 95
         out.append(text(x, ty, str(e["year"]), 46, col, B.F_BOLD, "middle", clamp(a)))
-        for j, ln in enumerate(wrap(e["label"], 30, max(step * 1.6, 260) if n > 1 else 600)):
-            yy = (ty - 60 - j * 40) if up else (ty + 50 + j * 40)
-            out.append(text(x, yy, ln, 30, B.INK_2, B.F_REG, "middle", clamp(a)))
+        lines = wrap(e["label"], 30, max(min(step * 0.9, 520), 240) if n > 1 else 600, balance=True)
+        lw = max(text_width(ln, 30) for ln in lines)
+        lx = clamp(x, B.SAFE_X - 60 + lw / 2, B.W - B.SAFE_X + 60 - lw / 2)  # keep labels in frame
+        for j, ln in enumerate(lines if up else lines):
+            yy = (ty - 60 - (len(lines) - 1 - j) * 40) if up else (ty + 50 + j * 40)
+            out.append(text(lx, yy, ln, 30, B.INK_2, B.F_REG, "middle", clamp(a)))
     return "".join(out)
 
 

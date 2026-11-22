@@ -6,3 +6,6 @@ videos/*/state.json
 **/build/
 **/output/*.mp4
 **/state.json
+experiments/**/*.wav
+experiments/**/log_*.txt
+experiments/**/*_silent.mp4

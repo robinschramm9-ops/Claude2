@@ -1,0 +1,1 @@
+('/home/user/Claude2/experiments/mascot/out/pip_v2/pip_v2_machine.mp4', 15.5, [0.25, 2.59, 4.9, 7.19, 8.45, 9.55, 13.65])

@@ -223,9 +223,11 @@ class Pip:
         o.append(_eye(-10, -132, 14, 17, p, "#14200A", None, "#8CC51F"))
         o.append(_eye(28, -134, 16, 19, p, "#14200A", None, "#8CC51F"))
         # monocle on the front eye
-        o.append('<circle cx="28" cy="-134" r="22" fill="#FFF7D6" fill-opacity="0.12" stroke="#E7C65A" stroke-width="4"/>'
-                 '<path d="M48,-124 Q62,-90 46,-62" fill="none" stroke="#E7C65A" stroke-width="2" stroke-dasharray="3 3"/>'
-                 '<path d="M14,-150 A20,20 0 0 1 36,-154" fill="none" stroke="#fff" stroke-width="3" opacity="0.7"/>')
+        mdy, mrot = p.extra.get("monocle_drop", (0, 0))   # gag: the monocle falls off
+        o.append(f'<g transform="translate(0 {mdy:.1f}) rotate({mrot:.1f} 28 -134)">'
+                 '<circle cx="28" cy="-134" r="22" fill="#FFF7D6" fill-opacity="0.12" stroke="#E7C65A" stroke-width="4"/>'
+                 '<path d="M14,-150 A20,20 0 0 1 36,-154" fill="none" stroke="#fff" stroke-width="3" opacity="0.7"/></g>'
+                 f'<path d="M48,-124 Q{62 + mdy * 0.1:.1f},{-90 + mdy * 0.5:.1f} 46,-62" fill="none" stroke="#E7C65A" stroke-width="2" stroke-dasharray="3 3"/>')
         o.append(_brow(-10, -160, 20, p.brow, -1, "#2B3D0A", 5))
         o.append(_brow(28, -166, 22, p.brow, 1, "#2B3D0A", 5))
         o.append(_mouth(10, -100, 26, p.mouth, "#2B3D0A"))

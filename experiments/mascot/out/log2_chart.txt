@@ -1,0 +1,1 @@
+('/home/user/Claude2/experiments/mascot/out/pip_v2/pip_v2_chart.mp4', 16.4, [0.25, 1.48, 6.81, 8.27, 9.64, 11.41, 12.6, 13.94])

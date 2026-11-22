@@ -17,7 +17,8 @@ BANNED = ["in today's fast-paced world", "delve", "game-changer", "game changer"
           "buckle up", "let's dive", "dive into", "without further ado", "ever-evolving", "navigate the",
           "harness the power", "cutting-edge", "seamless", "a testament to", "smash that like"]
 HEDGES = ("estimate", "about", "roughly", "around", "nearly", "almost", "analysts", "reportedly",
-          "some", "could", "may", "up to", "more than", "over", "at least", "by one", "according")
+          "some", "could", "may", "up to", "more than", "over", "at least", "by one", "according",
+          "forecast", "projection", "projects", "projected", "expects", "likely")
 
 NUM_RE = re.compile(r"(?<![\w.])(\$?\d[\d,.]*\s*(%|percent|billion|million|trillion|nanometers?|nm)?)", re.I)
 YEAR_RE = re.compile(r"^(19|20)\d\d$")

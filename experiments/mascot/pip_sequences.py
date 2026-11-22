@@ -114,7 +114,7 @@ def share_panel(x, y, grow, w=760, h=520, hi=None):
          f'<rect x="{x}" y="{top}" width="{w}" height="{h}" rx="22" fill="url(#glass)" stroke="#2E3649" stroke-width="2"/>',
          T(x + 44, top + 66, "Share of global foundry revenue", 32, "#F4F5F7", "Inter ExtraBold"),
          T(x + 44, top + 100, "4Q 2025 · TrendForce estimate", 22, "#8A92A3")]
-    base, maxh = y - 72, h - 220
+    base, maxh = y - 72, h - 270
     col = (w - 88) / 3
     for i, (lab, v) in enumerate(items):
         g = ease((grow - i * 0.15) / 0.7)
@@ -175,10 +175,10 @@ def frame_wafer(t, a, st):
         p = base.but(arm_r=165, arm_l=160, hand_r="grip", hand_l="grip", look=(0.4, -1), mouth="o", brow="raised", squash=-0.04)
     else:  # leans in, monocle to the die grid
         k = ease((t - s3 - 1.1) / 0.8)
-        p = base.but(x=760 + 40 * k, arm_r=70 + 30 * k, hand_r="grip", arm_l=40, lean=14 * k, look=(1, -0.2),
+        p = base.but(x=760 - 60 * k, arm_r=70 + 30 * k, hand_r="grip", arm_l=40, lean=14 * k, look=(1, -0.2),
                      brow="skeptical", mouth=talk_mouth(a, "flat"))
     zoom = 1.0 + 0.22 * ease((t - (s3 + 1.4)) / 2.5)   # slow push-in to the die grid
-    world = stage(spot=(1000, 480)) + Pip.draw(p) + (wafer(1150, wy, 250, tilt=0.06) if t > s3 - 0.1 else "")
+    world = stage(spot=(1000, 480)) + (wafer(1150, wy, 250, tilt=0.06) if t > s3 - 0.1 else "") + Pip.draw(p)
     if t > s3 + 2.2:
         o = min(1, (t - s3 - 2.2) / 0.6)
         world += T(1150, 880, "Each square: one chip", 30, "#F4F5F7", "Inter SemiBold", "middle", o)

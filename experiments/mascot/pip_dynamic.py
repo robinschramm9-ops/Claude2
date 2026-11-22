@@ -41,7 +41,48 @@ SEQ = {
 
 
 # ---------------------------------------------------------------------------------------- audio
+TTS = os.environ.get("PIP_TTS", "kokoro")
+EL_VOICE = os.environ.get("PIP_EL_VOICE", "nPczCjzI2devNBz1zQrb")
+TAG = os.environ.get("PIP_TAG", "")
+
+
+def speak_elevenlabs(name):
+    """ElevenLabs, phrase by phrase, each request given its neighbours for natural continuity."""
+    import json, urllib.error, urllib.request
+    sr, phrases = 24000, SEQ[name]
+    parts, starts, t = [np.zeros(int(0.25 * sr), np.float32)], [], 0.25
+    for i, ph in enumerate(phrases):
+        body = {"text": ph, "model_id": "eleven_multilingual_v2",
+                "previous_text": " ".join(phrases[:i])[-400:], "next_text": " ".join(phrases[i + 1:])[:400],
+                "voice_settings": {"stability": 0.38, "similarity_boost": 0.8, "style": 0.35, "use_speaker_boost": True, "speed": 1.08}}
+        req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{EL_VOICE}?output_format=mp3_44100_128",
+                                     data=json.dumps(body).encode(), method="POST",
+                                     headers={"xi-api-key": os.environ.get("ELEVENLABS_API_KEY", "proxy-injected"),
+                                              "Content-Type": "application/json", "Accept": "audio/mpeg"})
+        for attempt in range(6):            # free plan allows few concurrent requests: back off on 429
+            try:
+                mp3 = urllib.request.urlopen(req, timeout=120).read()
+                break
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or attempt == 5:
+                    raise
+                import time; time.sleep(2 * 2 ** attempt)
+        pcm = subprocess.run(["ffmpeg", "-v", "error", "-i", "pipe:0", "-f", "f32le", "-ac", "1", "-ar", str(sr), "pipe:1"],
+                             input=mp3, capture_output=True, check=True).stdout
+        a = np.frombuffer(pcm, np.float32).copy()
+        nz = np.where(np.abs(a) > 0.01)[0]
+        a = a[max(0, nz[0] - 600): nz[-1] + 1200] if len(nz) else a
+        starts.append(t)
+        gap = 0.28 if ph.endswith((".", "?")) else 0.05
+        parts += [a, np.zeros(int(gap * sr), np.float32)]
+        t += len(a) / sr + gap
+    parts.append(np.zeros(int(1.0 * sr), np.float32))
+    return np.concatenate(parts), sr, starts
+
+
 def speak(name):
+    if TTS == "elevenlabs":
+        return speak_elevenlabs(name)
     from kokoro_onnx import Kokoro
     k = Kokoro(f"{MODELS}/kokoro-v1.0.int8.onnx", f"{MODELS}/voices-v1.0.bin")
     parts, starts, t, sr = [np.zeros(int(0.25 * 24000), np.float32)], [], 0.25, 24000
@@ -112,7 +153,7 @@ def beat_bed(dur, bpm=112):
 
 
 def mix(name, voice, sr, dur, events):
-    vpath = os.path.join(OUT, f"{name}_voice.wav")
+    vpath = os.path.join(OUT, f"{name}{TAG}_voice.wav")
     with wave.open(vpath, "wb") as w:
         w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr)
         w.writeframes((np.clip(voice, -1, 1) * 32767).astype(np.int16).tobytes())
@@ -121,13 +162,13 @@ def mix(name, voice, sr, dur, events):
         s = SFX[kind](); a = int(t0 * SR)
         fx[a:a + len(s)] += s[: len(fx) - a]
     bed = beat_bed(dur)
-    mpath = os.path.join(OUT, f"{name}_fx.wav")
+    mpath = os.path.join(OUT, f"{name}{TAG}_fx.wav")
     music = np.zeros_like(fx); music[:len(bed)] = bed
     stereo = np.stack([music * 0.5 + fx * 0.6, music * 0.5 + fx * 0.6], 1)
     with wave.open(mpath, "wb") as w:
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((np.clip(stereo, -1, 1) * 32767).astype(np.int16).reshape(-1).tobytes())
-    out = os.path.join(OUT, f"{name}_mix.wav")
+    out = os.path.join(OUT, f"{name}{TAG}_mix.wav")
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", vpath, "-i", mpath, "-filter_complex",
                     "[0]aresample=48000,pan=stereo|c0=c0|c1=c0,volume=1.4,asplit=2[v][sc];"
                     "[1]volume=-6dB[m];[m][sc]sidechaincompress=threshold=0.03:ratio=5:attack=10:release=250[md];"
@@ -342,14 +383,14 @@ def render(name):
     env = env / (env.max() or 1)
     events = [(starts[i] + off, kind) for i, off, kind in EVENTS[name]]
     audio = mix(name, voice, sr, dur, events)
-    silent = os.path.join(OUT, f"{name}_silent.mp4")
+    silent = os.path.join(OUT, f"{name}{TAG}_silent.mp4")
     ff = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "image2pipe", "-framerate", str(FPS), "-c:v", "png", "-i", "-",
                            "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18", "-preset", "veryfast", silent], stdin=subprocess.PIPE)
     for f in range(n):
         ff.stdin.write(cairosvg.svg2png(bytestring=FRAMES[name](f / FPS, float(env[f]), starts).encode(),
                                         output_width=W, output_height=H))
     ff.stdin.close(); ff.wait()
-    out = os.path.join(OUT, f"pip_v2_{name}.mp4")
+    out = os.path.join(OUT, f"pip_v2_{name}{TAG}.mp4")
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", silent, "-i", audio, "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
                     "-shortest", "-movflags", "+faststart", out], check=True)
     os.remove(silent)

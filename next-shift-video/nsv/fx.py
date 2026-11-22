@@ -100,8 +100,25 @@ def _pil_font(family: str, size: int):
     return None
 
 
+@functools.lru_cache(maxsize=4096)
+def _cairo_width(s: str, size: int, family: str) -> float | None:
+    """Measure with cairo, the same engine cairosvg draws with (exact match)."""
+    try:
+        import cairocffi as cairo
+    except ImportError:
+        return None
+    ctx = cairo.Context(cairo.ImageSurface(cairo.FORMAT_ARGB32, 1, 1))
+    ctx.select_font_face(family, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+    ctx.set_font_size(size)
+    return ctx.text_extents(s)[4]
+
+
 def text_width(s: str, size: int, family: str | None = None, spacing: float = 0) -> float:
     family = family or brand.F_REG
+    if brand.SOFT:   # white theme: exact measurement (dark theme keeps its original behaviour)
+        w = _cairo_width(s, int(size), family)
+        if w is not None:
+            return w + spacing * max(len(s) - 1, 0)
     f = _pil_font(family, int(size))
     if f is None:  # rough fallback if Inter is missing
         w = 0.56 * size * len(s)

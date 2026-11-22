@@ -1,0 +1,611 @@
+1
+00:00:00,300 --> 00:00:03,557
+Everyone in the AI race is
+trying to pick the winner.
+
+2
+00:00:03,597 --> 00:00:08,132
+One company is positioned to profit almost
+no matter which chip designer comes out
+
+3
+00:00:08,172 --> 00:00:09,170
+on top.
+
+4
+00:00:09,920 --> 00:00:13,560
+Nvidia and AMD are fierce
+rivals in AI chips.
+
+5
+00:00:13,600 --> 00:00:17,635
+Yet their own annual reports name the
+same manufacturer for their most advanced
+
+6
+00:00:17,675 --> 00:00:18,697
+chips.
+
+7
+00:00:19,447 --> 00:00:21,183
+Its name isn't printed on the chips,
+
+8
+00:00:21,223 --> 00:00:23,227
+and most people have never heard of it.
+
+9
+00:00:23,267 --> 00:00:25,949
+But the AI industry depends on it.
+
+10
+00:00:26,699 --> 00:00:28,691
+It's called TSMC,
+
+11
+00:00:28,731 --> 00:00:33,439
+the Taiwan Semiconductor
+Manufacturing Company. In 2025,
+
+12
+00:00:33,479 --> 00:00:39,934
+its revenue reached about 122 billion
+dollars, up 36 percent in a single year.
+
+13
+00:00:43,284 --> 00:00:44,927
+Follow a single AI chip.
+
+14
+00:00:44,967 --> 00:00:47,749
+Companies like Nvidia and AMD design it.
+
+15
+00:00:47,789 --> 00:00:50,314
+But a design is only a blueprint.
+
+16
+00:00:50,354 --> 00:00:54,290
+Someone has to turn it into
+billions of transistors on silicon.
+
+17
+00:00:55,040 --> 00:00:58,181
+AMD's annual report puts it plainly.
+
+18
+00:00:58,221 --> 00:01:04,474
+We rely on TSMC for the production of all
+wafers for microprocessor and GPU products
+
+19
+00:01:04,514 --> 00:01:07,486
+at 7 nanometer or smaller nodes.
+
+20
+00:01:08,236 --> 00:01:13,711
+Nvidia's annual report names two
+manufacturers: TSMC and Samsung.
+
+21
+00:01:13,751 --> 00:01:17,821
+And
+when Nvidia celebrated the first Blackwell wafer produced in the United States,
+
+22
+00:01:17,861 --> 00:01:23,097
+in October 2025, it came out
+of TSMC's factory in Arizona.
+
+23
+00:01:23,847 --> 00:01:25,548
+That's the foundry model.
+
+24
+00:01:25,588 --> 00:01:29,031
+TSMC doesn't sell AI
+chips under its own name.
+
+25
+00:01:29,071 --> 00:01:31,771
+It manufactures chips that
+other companies design,
+
+26
+00:01:31,811 --> 00:01:33,559
+and it competes for their orders,
+
+27
+00:01:33,599 --> 00:01:35,178
+not for their customers.
+
+28
+00:01:35,928 --> 00:01:36,805
+By that measure,
+
+29
+00:01:36,845 --> 00:01:38,849
+the gap is enormous.
+
+30
+00:01:38,889 --> 00:01:44,677
+The research firm TrendForce estimates
+TSMC took 70.4 percent of global foundry
+
+31
+00:01:44,717 --> 00:01:47,858
+revenue in the last quarter of 2025.
+
+32
+00:01:47,898 --> 00:01:52,879
+Samsung's foundry business, in
+second place, took 7.1 percent.
+
+33
+00:01:53,629 --> 00:01:55,238
+In dollars, that quarter:
+
+34
+00:01:55,278 --> 00:01:58,953
+about 33.7 billion for TSMC.
+
+35
+00:01:58,993 --> 00:02:02,691
+About 3.4 billion for
+Samsung's foundry business.
+
+36
+00:02:02,731 --> 00:02:06,493
+About 2.5 billion for China's SMIC.
+
+37
+00:02:07,243 --> 00:02:09,223
+That matters for the AI race.
+
+38
+00:02:09,263 --> 00:02:11,557
+If AMD takes ground from Nvidia,
+
+39
+00:02:11,597 --> 00:02:15,881
+the orders for those chips are still
+likely to land at the same factory.
+
+40
+00:02:16,631 --> 00:02:21,432
+You can see this in TSMC's
+own numbers. In 2025,
+
+41
+00:02:21,472 --> 00:02:22,895
+high-performance computing,
+
+42
+00:02:22,935 --> 00:02:25,728
+the category that
+includes AI accelerators,
+
+43
+00:02:25,768 --> 00:02:28,143
+made up 58 percent of its revenue,
+
+44
+00:02:28,183 --> 00:02:30,842
+and grew 48 percent in a year.
+
+45
+00:02:31,591 --> 00:02:32,433
+Smartphones,
+
+46
+00:02:32,473 --> 00:02:37,565
+the business that built the modern
+TSMC, were 29 percent. Everything else,
+
+47
+00:02:37,605 --> 00:02:41,715
+from cars to connected
+devices, about 13 percent.
+
+48
+00:02:45,065 --> 00:02:47,614
+There's an old saying about gold rushes.
+
+49
+00:02:47,654 --> 00:02:50,644
+The surest way to get rich
+isn't digging for gold.
+
+50
+00:02:50,684 --> 00:02:52,356
+It's selling the shovels.
+
+51
+00:02:53,106 --> 00:02:56,549
+Nvidia is often called
+the shovel seller of AI,
+
+52
+00:02:56,589 --> 00:02:59,243
+and it has been spectacularly successful:
+
+53
+00:02:59,283 --> 00:03:05,645
+nearly 216 billion dollars in
+revenue in its fiscal year 2026.
+
+54
+00:03:06,395 --> 00:03:08,898
+And Nvidia keeps more of each dollar.
+
+55
+00:03:08,938 --> 00:03:11,521
+Its gross margin was 71 percent,
+
+56
+00:03:11,561 --> 00:03:15,864
+even after a one-off charge
+of 4.5 billion dollars.
+
+57
+00:03:15,904 --> 00:03:18,051
+TSMC's was 60 percent.
+
+58
+00:03:18,802 --> 00:03:21,432
+That's because they sit at
+different points in the chain.
+
+59
+00:03:21,472 --> 00:03:24,880
+Nvidia designs and sells
+complete chips and systems.
+
+60
+00:03:24,920 --> 00:03:27,353
+TSMC is paid to manufacture them.
+
+61
+00:03:27,393 --> 00:03:30,644
+Part of what Nvidia spends, TSMC earns.
+
+62
+00:03:31,394 --> 00:03:34,825
+Nvidia has to keep winning
+to keep those margins.
+
+63
+00:03:34,865 --> 00:03:38,750
+TSMC benefits as long as demand
+for advanced chips keeps growing,
+
+64
+00:03:38,790 --> 00:03:40,410
+whoever designs them.
+
+65
+00:03:40,450 --> 00:03:41,768
+That's an advantage.
+
+66
+00:03:41,808 --> 00:03:44,258
+It isn't a guarantee.
+
+67
+00:03:45,008 --> 00:03:47,260
+The dependence goes beyond the silicon.
+
+68
+00:03:47,910 --> 00:03:51,899
+Modern AI chips need an advanced
+packaging step called CoWoS,
+
+69
+00:03:51,939 --> 00:03:55,503
+which places the processor
+right next to high-speed memory.
+
+70
+00:03:56,253 --> 00:03:59,348
+By one estimate from the
+research group Epoch AI,
+
+71
+00:03:59,388 --> 00:04:04,119
+the four largest AI chip designers used
+around 90 percent of the world's CoWoS
+
+72
+00:04:04,159 --> 00:04:06,795
+capacity in 2025.
+
+73
+00:04:07,545 --> 00:04:13,461
+Epoch AI concludes that in 2025, AI
+chip production was held back mainly by
+
+74
+00:04:13,501 --> 00:04:15,226
+packaging and memory,
+
+75
+00:04:15,266 --> 00:04:17,281
+not by chip design.
+
+76
+00:04:17,321 --> 00:04:22,406
+Whoever controls that capacity has real
+influence over how many AI chips get made.
+
+77
+00:04:25,756 --> 00:04:28,630
+But even TSMC depends on someone.
+
+78
+00:04:28,670 --> 00:04:34,516
+To print the tiniest features on a chip,
+it uses extreme ultraviolet lithography.
+
+79
+00:04:34,556 --> 00:04:37,790
+And only one company in the
+world sells those machines:
+
+80
+00:04:37,830 --> 00:04:41,220
+ASML, in the Netherlands.
+
+81
+00:04:41,970 --> 00:04:43,799
+ASML's most advanced model,
+
+82
+00:04:43,839 --> 00:04:45,819
+called High-NA EUV,
+
+83
+00:04:45,859 --> 00:04:51,032
+reportedly costs around
+380 to 400 million dollars.
+
+84
+00:04:51,072 --> 00:04:52,698
+For a single machine.
+
+85
+00:04:53,448 --> 00:04:56,020
+So the structure looks
+like this. At the top,
+
+86
+00:04:56,060 --> 00:04:58,969
+the AI products everyone
+talks about. Below them,
+
+87
+00:04:59,009 --> 00:05:00,943
+the chip designers. Below them,
+
+88
+00:05:00,983 --> 00:05:04,542
+the manufacturers, led
+by TSMC. And underneath,
+
+89
+00:05:04,582 --> 00:05:07,519
+lithography machines from
+a single Dutch company.
+
+90
+00:05:10,869 --> 00:05:13,133
+Now the part that worries governments.
+
+91
+00:05:13,783 --> 00:05:19,595
+A
+2024 report by the Semiconductor Industry Association and Boston Consulting Group
+
+92
+00:05:19,635 --> 00:05:25,632
+found
+that in 2022, 69 percent of the world's wafer capacity for the most advanced
+
+93
+00:05:25,672 --> 00:05:26,596
+logic chips,
+
+94
+00:05:26,636 --> 00:05:29,092
+below 10 nanometers, was in Taiwan.
+
+95
+00:05:29,132 --> 00:05:31,303
+The rest was in South Korea.
+
+96
+00:05:32,053 --> 00:05:38,340
+The same report forecasts Taiwan's share
+falling to 47 percent by 2032, if the
+
+97
+00:05:38,380 --> 00:05:41,382
+factories announced since 2020 are built.
+
+98
+00:05:41,422 --> 00:05:43,895
+That's a projection, not a result.
+
+99
+00:05:44,645 --> 00:05:49,806
+Even so, a large part of the AI economy
+rests on factories on one island, in an
+
+100
+00:05:49,846 --> 00:05:54,044
+active earthquake zone, at the center
+of one of the world's most sensitive
+
+101
+00:05:54,084 --> 00:05:55,883
+geopolitical disputes.
+
+102
+00:05:56,633 --> 00:06:01,144
+Which is why the map is starting
+to change. In March 2025,
+
+103
+00:06:01,184 --> 00:06:07,715
+TSMC said it expects its total investment
+in the United States to reach 165 billion
+
+104
+00:06:07,755 --> 00:06:08,800
+dollars.
+
+105
+00:06:09,551 --> 00:06:14,561
+Its first Arizona factory entered
+volume production in late 2024.
+
+106
+00:06:14,601 --> 00:06:19,809
+But notice who is building
+these factories: TSMC itself.
+
+107
+00:06:19,849 --> 00:06:23,199
+Moving production closer to
+customers reduces one risk.
+
+108
+00:06:23,239 --> 00:06:25,155
+It doesn't change who
+the industry depends on.
+
+109
+00:06:28,505 --> 00:06:29,847
+So who profits?
+
+110
+00:06:29,887 --> 00:06:34,398
+TSMC and ASML are positioned
+to profit from AI chip demand,
+
+111
+00:06:34,438 --> 00:06:36,337
+whichever designer wins.
+
+112
+00:06:36,377 --> 00:06:38,740
+Who's under pressure? Rival foundries,
+
+113
+00:06:38,780 --> 00:06:43,737
+competing for the roughly 30 percent
+of foundry revenue TSMC doesn't take.
+
+114
+00:06:44,487 --> 00:06:49,683
+But TSMC doesn't win
+every order. In July 2025,
+
+115
+00:06:49,723 --> 00:06:55,488
+Samsung signed a contract worth about 16.5
+billion dollars to make Tesla's next AI
+
+116
+00:06:55,528 --> 00:06:56,301
+chip.
+
+117
+00:06:56,341 --> 00:07:01,902
+And Nvidia's own annual report lists
+Samsung as a foundry, alongside TSMC.
+
+118
+00:07:02,652 --> 00:07:05,189
+And who controls the future of AI?
+
+119
+00:07:05,229 --> 00:07:07,860
+Not only the companies
+with the smartest models.
+
+120
+00:07:07,900 --> 00:07:11,970
+Also the few that control the bottlenecks
+underneath them: the machines,
+
+121
+00:07:12,010 --> 00:07:13,015
+the factories,
+
+122
+00:07:13,055 --> 00:07:14,773
+and the packaging lines.
+
+123
+00:07:15,523 --> 00:07:19,454
+And TSMC is betting heavily
+that demand keeps growing.
+
+124
+00:07:19,494 --> 00:07:25,554
+It expects to spend 52 to 56 billion
+dollars on capital investment in 2026.
+
+125
+00:07:26,304 --> 00:07:29,306
+Three things will decide
+how this plays out.
+
+126
+00:07:29,346 --> 00:07:32,348
+Whether AI demand justifies that spending.
+
+127
+00:07:32,388 --> 00:07:34,879
+Whether packaging capacity keeps up.
+
+128
+00:07:34,919 --> 00:07:39,121
+And whether rivals like Samsung win
+more of the most advanced orders.
+
+129
+00:07:39,871 --> 00:07:42,165
+That's the real risk in this business.
+
+130
+00:07:42,205 --> 00:07:45,613
+TSMC doesn't need to know
+who wins the AI race.
+
+131
+00:07:45,653 --> 00:07:47,905
+But it does need the race to keep going.
+
+132
+00:07:48,655 --> 00:07:53,375
+The most dependable money in AI may not
+go to whoever builds the smartest model.
+
+133
+00:07:53,415 --> 00:07:56,963
+It may go to whoever owns
+the bottleneck. For now,
+
+134
+00:07:57,003 --> 00:07:59,986
+that's a company most
+people have never heard of.
+
+135
+00:08:00,737 --> 00:08:02,206
+This is THE NEXT SHIFT.
+
+136
+00:08:02,246 --> 00:08:04,777
+Understand tomorrow before it happens.

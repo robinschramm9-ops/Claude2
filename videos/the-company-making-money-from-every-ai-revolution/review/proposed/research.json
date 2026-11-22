@@ -1,0 +1,434 @@
+{
+  "topic": "The Company Making Money From Every AI Revolution",
+  "central_question": "If nobody knows which AI company will win, who gets paid regardless?",
+  "editorial": {
+    "what_changes": "AI spending is shifting value and bargaining power toward the very few companies that can physically manufacture leading-edge chips: above all TSMC, and beneath it ASML.",
+    "why_it_matters": "Whichever lab or chip designer wins the AI race, its product runs on silicon that is mostly made by one company, largely on one island. That concentration shapes prices, supply, and geopolitical risk for everyone.",
+    "who_benefits": "TSMC (paid on nearly every advanced AI chip regardless of the designer), ASML (sole commercial supplier of EUV tools), and customers with priority access to scarce capacity.",
+    "who_loses": "Rival foundries competing for a shrinking remainder of the market; chip designers who must queue for manufacturing and packaging capacity; anyone exposed to a disruption in Taiwan.",
+    "what_next": "Record capital spending is a bet that AI demand holds; packaging is the tightest bottleneck; production is spreading to Arizona but still under TSMC; rivals are trying to close the gap."
+  },
+  "sources": [
+    {
+      "id": "S1",
+      "type": "primary",
+      "publisher": "TSMC",
+      "short": "TSMC 4Q25 earnings call",
+      "title": "TSMC 4Q25 Earnings Conference Transcript",
+      "url": "https://investor.tsmc.com/japanese/encrypt/files/encrypt_file/reports/2026-01/51d09df96cd89ac19d65af39032b038dc2896a24/TSMC%204Q25%20Transcript.pdf",
+      "date": "2026-01",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S2",
+      "type": "primary",
+      "publisher": "TSMC",
+      "short": "TSMC 4Q25 results",
+      "title": "TSMC 4Q25 earnings release (mirror copy)",
+      "url": "https://basic.10jqka.com.cn/ajax/usaph/pubDetail/72c4a5f2626ccedf_pdf",
+      "date": "2026-01",
+      "accessed": "2026-11-22",
+      "notes": "Third-party mirror of the official release. Replace with investor.tsmc.com link before publishing."
+    },
+    {
+      "id": "S3",
+      "type": "secondary",
+      "publisher": "Manufacturing Dive",
+      "short": "Manufacturing Dive",
+      "title": "TSMC Q4 and full-year 2025 earnings",
+      "url": "https://www.manufacturingdive.com/news/tsmc-q4-full-year-2025-earnings-ai-taiwan/809775",
+      "date": "2026-01",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S4",
+      "type": "secondary",
+      "publisher": "Focus Taiwan (CNA), reporting TrendForce",
+      "short": "TrendForce",
+      "title": "TSMC nets nearly 70% of 2025 foundry market",
+      "url": "https://focustaiwan.tw/business/202603130009",
+      "date": "2026-03-13",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S5",
+      "type": "primary",
+      "publisher": "NVIDIA",
+      "short": "NVIDIA FY2026 results",
+      "title": "NVIDIA Announces Financial Results for Fourth Quarter and Fiscal 2026",
+      "url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Fourth-Quarter-and-Fiscal-2026/default.aspx",
+      "date": "2026-02-25",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S6",
+      "type": "primary",
+      "publisher": "TSMC",
+      "short": "TSMC press release",
+      "title": "TSMC Intends to Expand Its Investment in the United States to US$165 Billion to Power the Future of AI",
+      "url": "https://pr.tsmc.com/english/news/3210",
+      "date": "2025-03",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S7",
+      "type": "secondary",
+      "publisher": "Tom's Hardware",
+      "short": "Tom's Hardware",
+      "title": "TSMC 'very nervous' about AI bubble concerns despite another record-setting quarter; will invest $52-56 billion in capex",
+      "url": "https://www.tomshardware.com/tech-industry/semiconductors/tsmc-very-nervous-about-ai-bubble-concerns-despite-another-record-setting-quarter-but-assured-of-demand-ceo-says-careless-investment-would-be-a-disaster-for-tsmc-for-sure-company-will-invest-usd52-usd56-billion-in-capex",
+      "date": "2026-01",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S8",
+      "type": "secondary",
+      "publisher": "Tom's Hardware (citing Reuters)",
+      "short": "Tom's Hardware/Reuters",
+      "title": "ASML's High-NA chipmaking tool will cost $380 million",
+      "url": "https://www.tomshardware.com/tech-industry/manufacturing/asmls-high-na-chipmaking-tool-will-cost-dollar380-million-the-company-already-has-orders-for-10-to-20-machines-and-is-ramping-up-production",
+      "date": "2024-02",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S9",
+      "type": "secondary",
+      "publisher": "CNBC",
+      "short": "CNBC",
+      "title": "Exclusive look at the making of High-NA, ASML's new $400 million chipmaking colossus",
+      "url": "https://www.nbcwashington.com/news/business/money-report/exclusive-look-at-the-making-of-high-na-asmls-new-400-million-chipmaking-colossus/3919541/",
+      "date": "2025",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S10",
+      "type": "analysis",
+      "publisher": "Epoch AI",
+      "short": "Epoch AI",
+      "title": "AI chip supply chain constraints",
+      "url": "https://epoch.ai/data-insights/ai-chip-supply-chain-constraints",
+      "date": "2026",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S11",
+      "type": "secondary",
+      "publisher": "AnandTech",
+      "short": "AnandTech",
+      "title": "TSMC: Short Supply of HPC GPUs to Persist for 1.5 Years",
+      "url": "https://www.anandtech.com/show/20045",
+      "date": "2023-09",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S12",
+      "type": "primary",
+      "publisher": "Semiconductor Industry Association / BCG",
+      "short": "SIA & BCG",
+      "title": "Strengthening the Global Semiconductor Supply Chain in an Uncertain Era",
+      "url": "https://www.semiconductors.org/strengthening-the-global-semiconductor-supply-chain-in-an-uncertain-era/",
+      "date": "2021-04",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S13",
+      "type": "secondary",
+      "publisher": "Taipei Times / LTN, reporting TrendForce",
+      "short": "TrendForce",
+      "title": "TSMC nets nearly 70% of 2025 foundry market",
+      "url": "https://news.ltn.com.tw/news/focus/breakingnews/5369655",
+      "date": "2026-03-14",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S14",
+      "type": "secondary",
+      "publisher": "South China Morning Post",
+      "short": "SCMP",
+      "title": "TSMC pledges extra US$100 billion Arizona fab expansion",
+      "url": "https://www.scmp.com/tech/tech-war/article/3360809/tsmc-pledges-extra-us100-billion-arizona-fab-expansion-amid-soaring-ai-chip-demand",
+      "date": "unknown",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S15",
+      "type": "primary",
+      "publisher": "Semiconductor Industry Association / BCG",
+      "short": "SIA & BCG 2024",
+      "title": "Emerging Resilience in the Semiconductor Supply Chain",
+      "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf",
+      "date": "2024-05",
+      "accessed": "2026-11-22",
+      "notes": "Figures below were read via The Register / SCMP, not yet from the PDF itself (p.14)."
+    },
+    {
+      "id": "S16",
+      "type": "secondary",
+      "publisher": "The Register",
+      "short": "The Register",
+      "title": "US to triple chip manufacturing capacity by 2032, SIA report",
+      "url": "https://www.theregister.com/2024/05/08/us_china_sia/",
+      "date": "2024-05-08",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S17",
+      "type": "secondary",
+      "publisher": "South China Morning Post",
+      "short": "SCMP",
+      "title": "Tech war: US to dwarf China in advanced chip-making capacity by 2032, report finds",
+      "url": "https://www.scmp.com/tech/tech-war/article/3262220/tech-war-us-dwarf-china-advanced-chip-making-capacity-2032-report-finds",
+      "date": "2024-05",
+      "accessed": "2026-11-22"
+    },
+    {
+      "id": "S18",
+      "type": "primary",
+      "publisher": "TSMC",
+      "short": "TSMC 4Q25 release",
+      "title": "TSMC Reports Fourth Quarter EPS of NT$19.50",
+      "url": "https://pr.tsmc.com/english/news/3281",
+      "date": "2026-01-15",
+      "accessed": "2026-11-22",
+      "notes": "Official release; replaces the S2 mirror once full-year tables are checked."
+    },
+    {
+      "id": "S19",
+      "type": "primary",
+      "publisher": "Amazon Web Services",
+      "short": "AWS",
+      "title": "Announcing Amazon EC2 Trn3 UltraServers",
+      "url": "https://aws.amazon.com/about-aws/whats-new/2025/12/amazon-ec2-trn3-ultraservers",
+      "date": "2025-12",
+      "accessed": "2026-11-22",
+      "notes": "Confirms Trainium3 is a 3nm chip; does NOT name the foundry."
+    }
+  ],
+  "claims": [
+    {
+      "id": "c_rev",
+      "text": "TSMC's 2025 net revenue was about US$122.4 billion, up about 36% year on year (NT$3,809.05 billion).",
+      "sources": [
+        "S2",
+        "S3"
+      ],
+      "status": "verified",
+      "notes": "USD figure from earnings coverage; NT$ figure from the release."
+    },
+    {
+      "id": "c_hpc",
+      "text": "High-performance computing was 58% of TSMC's 2025 revenue, up from 51% in 2024.",
+      "sources": [
+        "S1",
+        "S2"
+      ],
+      "status": "verified",
+      "notes": "TSMC's HPC category is broad: it includes PC/server CPUs as well as AI accelerators. Narration must not say HPC = AI."
+    },
+    {
+      "id": "c_phone",
+      "text": "Smartphone was 29% of TSMC's 2025 revenue, down from 35% in 2024.",
+      "sources": [
+        "S2"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "c_other",
+      "text": "All other platforms (IoT, automotive, consumer, other) together were about 13% of 2025 revenue.",
+      "sources": [
+        "S2"
+      ],
+      "status": "verified",
+      "notes": "Derived: 100 - 58 - 29."
+    },
+    {
+      "id": "c_share",
+      "text": "TSMC held 69.9% of global foundry revenue in 2025 (TrendForce), up from 64.4% in 2024.",
+      "sources": [
+        "S4",
+        "S13"
+      ],
+      "status": "single-source",
+      "notes": "Both outlets relay one analyst firm (TrendForce). Attribute it on screen and in narration."
+    },
+    {
+      "id": "c_samsung",
+      "text": "Samsung was second with 7.2% of 2025 foundry revenue (TrendForce).",
+      "sources": [
+        "S4"
+      ],
+      "status": "single-source",
+      "notes": "TrendForce estimate."
+    },
+    {
+      "id": "c_smic",
+      "text": "SMIC was third with about 5.3% of 2025 foundry revenue (TrendForce).",
+      "sources": [
+        "S4"
+      ],
+      "status": "single-source",
+      "notes": "TrendForce estimate."
+    },
+    {
+      "id": "c_customers",
+      "text": "TSMC manufactures the leading AI accelerators, including Nvidia's GPUs, Google's TPUs, Amazon's Trainium and AMD's Instinct chips.",
+      "sources": [
+        "S11",
+        "S10"
+      ],
+      "status": "single-source",
+      "notes": "DOWNGRADED from verified. TSMC does not disclose customers; AWS's 2025 Trainium3 launch (S19) says 3nm but does not name TSMC. Support = AnandTech (2023) + Epoch AI (CoWoS dependence). Strengthen before publishing: Nvidia's latest 10-K supplier disclosure; AMD/Google/AWS statements naming TSMC."
+    },
+    {
+      "id": "c_nvda",
+      "text": "Nvidia reported fiscal 2026 revenue of $215.9 billion (up 65%); data center revenue was $193.7 billion.",
+      "sources": [
+        "S5"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "c_cowos_def",
+      "text": "CoWoS is TSMC's advanced packaging technology that integrates AI processors with high-bandwidth memory; it is a key capacity constraint for AI chips.",
+      "sources": [
+        "S10",
+        "S11"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "c_cowos",
+      "text": "Nvidia, Google, AMD and Amazon together consumed over 90% of global CoWoS packaging capacity (by value) in 2025, while using about 12% of advanced logic die production.",
+      "sources": [
+        "S10"
+      ],
+      "status": "estimate",
+      "notes": "Epoch AI estimate. Must be hedged in narration."
+    },
+    {
+      "id": "c_asml_sole",
+      "text": "ASML is the only company that sells commercial EUV lithography systems.",
+      "sources": [
+        "S9"
+      ],
+      "status": "single-source",
+      "notes": "Widely reported; confirm against ASML's annual report before publishing."
+    },
+    {
+      "id": "c_highna",
+      "text": "ASML's High-NA EUV tool costs roughly $380-400 million per machine according to press reports.",
+      "sources": [
+        "S8",
+        "S9"
+      ],
+      "status": "estimate",
+      "notes": "No official list price; $380M (Reuters, 2024) vs ~$400M (CNBC, 2025)."
+    },
+    {
+      "id": "c_taiwan",
+      "text": "In the SIA/BCG study, 92% of global leading-edge (below 10nm) logic capacity was located in Taiwan (the remaining 8% in South Korea).",
+      "sources": [
+        "S12"
+      ],
+      "status": "disputed",
+      "notes": "SUPERSEDED. Older SIA/BCG baseline (pre-2022). The 2024 SIA/BCG report gives 69% for 2022 (c_taiwan22). The two studies may define 'sub-10nm' differently (logic only vs logic+memory) - do not present 92% as current."
+    },
+    {
+      "id": "c_us",
+      "text": "In March 2025 TSMC said its total US investment is expected to reach US$165 billion, including three more fabs, two advanced packaging facilities and an R&D center in Arizona.",
+      "sources": [
+        "S6"
+      ],
+      "status": "verified"
+    },
+    {
+      "id": "c_az1",
+      "text": "TSMC's first Arizona fab entered volume production in the fourth quarter of 2024.",
+      "sources": [
+        "S6"
+      ],
+      "status": "verified",
+      "notes": "Stated in TSMC's March 2025 press release."
+    },
+    {
+      "id": "c_capex26",
+      "text": "TSMC guided 2026 capital spending of US$52-56 billion.",
+      "sources": [
+        "S7"
+      ],
+      "status": "single-source",
+      "notes": "Verify against the 4Q25 transcript (S1) before publishing."
+    },
+    {
+      "id": "c_nervous",
+      "text": "TSMC's CEO said he was 'very nervous' about AI bubble concerns while saying demand is real.",
+      "sources": [
+        "S7"
+      ],
+      "status": "single-source",
+      "notes": "Paraphrase via Tom's Hardware; find the exact transcript wording before quoting directly."
+    },
+    {
+      "id": "c_us265",
+      "text": "TSMC pledged another $100 billion for Arizona, lifting US investment to $265 billion.",
+      "sources": [
+        "S14"
+      ],
+      "status": "unverified",
+      "notes": "Publication date and official confirmation not found. Do not use until confirmed by TSMC."
+    },
+    {
+      "id": "c_taiwan22",
+      "text": "In 2022, Taiwan had 69% of global sub-10nm manufacturing capacity and South Korea 31% (SIA/BCG 2024).",
+      "sources": [
+        "S15",
+        "S16",
+        "S17"
+      ],
+      "status": "single-source",
+      "notes": "Both outlets relay the same SIA/BCG report, so this is single-source until checked against the PDF (p.14)."
+    },
+    {
+      "id": "c_taiwan32",
+      "text": "SIA/BCG project Taiwan's share of sub-10nm capacity to fall to 47% by 2032, with the US rising to 28%.",
+      "sources": [
+        "S15",
+        "S16"
+      ],
+      "status": "single-source",
+      "notes": "Projection, not a fact. Only The Register quoted the 47% figure; verify in the PDF."
+    },
+    {
+      "id": "c_gm",
+      "text": "TSMC's 2025 gross margin was 59.9%, up from 56.1% in 2024.",
+      "sources": [
+        "S1"
+      ],
+      "status": "verified",
+      "notes": "From the 4Q25 earnings call transcript."
+    },
+    {
+      "id": "c_nvda_gm",
+      "text": "Nvidia's fiscal 2026 GAAP gross margin was 71.1%.",
+      "sources": [
+        "S5"
+      ],
+      "status": "verified"
+    }
+  ],
+  "conflicts": [
+    "High-NA EUV price: $380M (Reuters 2024) vs ~$400M (CNBC 2025). Use a range, hedged.",
+    "Taiwan share of advanced capacity: 92% (sub-10nm, SIA/BCG) vs 66-70% (broader definitions, TrendForce/SIA 2023). Use 92% only with year + definition.",
+    "A LinkedIn post claims 2025 growth of ~30%. That is TSMC's 2026 guidance; actual 2025 USD growth was ~36%.",
+    "Taiwan's advanced-capacity share: 92% (older SIA/BCG baseline) vs 69% in 2022 (SIA/BCG 2024). The 2024 figure is used in v2; the definitions may differ.",
+    "Customer list: TSMC is widely reported to make Nvidia, AMD, Google and AWS AI chips, but in the sources found, neither TSMC nor AWS confirms it for Trainium3."
+  ],
+  "open_questions": [
+    "Replace mirror S2 with the official investor.tsmc.com PDF.",
+    "Exact CEO wording on being 'nervous' (S1 transcript).",
+    "Confirm or drop the $265B Arizona figure (c_us265).",
+    "Read p.14 of the SIA/BCG 2024 PDF to confirm 69% / 47% and the definition used.",
+    "Find a current primary source for TSMC manufacturing Nvidia's and AMD's AI chips (e.g. Nvidia 10-K)."
+  ]
+}

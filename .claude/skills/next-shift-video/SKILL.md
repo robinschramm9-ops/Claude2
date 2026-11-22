@@ -17,12 +17,20 @@ validation, approval gates, narration, rendering, mixing and QC. **Never skip a 
 
 ## The editorial contract (non-negotiable)
 
-Every video answers, explicitly: **What is changing? Why does it matter? Who benefits?
-Who loses? What happens next?** If research cannot answer all five, the topic is not ready.
+Channel question: **WHO PROFITS, WHO LOSES, WHO CONTROLS THE FUTURE?**
+Every video answers, explicitly: what is changing, why it matters, who benefits, who loses, who controls
+it, and what happens next. If research cannot answer them, the topic is not ready.
+
+**Current scope (first eight videos):** the business and economics of AI infrastructure: chips,
+foundries, data centres, energy, and the companies and capital behind them. Do not propose or produce
+topics outside this scope (jobs, robots, privacy, everyday-life futurism) until the user widens it.
+
+Counter-arguments are mandatory: every video must state and answer the strongest objection to its thesis.
 
 1. Research before scripting. Storytelling before animation.
 2. Never invent a statistic, quote, source, date or event. If you cannot find it, it does not go in.
-3. Every number on screen or in narration must cite a claim in `research.json`.
+3. Every number on screen or in narration must cite a claim in `research.json`. Non-numeric facts that a
+   critic could dispute (who makes what, who owns what, who said what) need a claim too.
 4. Do not copy another creator's style, format or catchphrases.
 5. One clear thesis per video - an argument, not a list of facts.
 

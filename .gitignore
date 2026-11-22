@@ -3,3 +3,6 @@ __pycache__/
 videos/*/build/
 videos/*/output/*.mp4
 videos/*/state.json
+**/build/
+**/output/*.mp4
+**/state.json

@@ -1,0 +1,84 @@
+--- next-shift-video/nsv/components.py	2026-11-22 09:57:01.658039287 +0000
++++ nsv/components.py	2026-11-22 10:17:39.404639638 +0000
+@@ -142,32 +142,35 @@
+     items = p["items"]
+     n = len(items)
+     out = []
+-    top = B.SAFE_Y + 60
++    few = n <= 4
++    gap = 170 if few else min(130, 700 / max(n, 1))
++    bh = 92 if few else min(64, gap * 0.55)
++    lsz, vsz = (48, 52) if few else (38, 38)
++    block = (n - 1) * gap + bh + (130 if p.get("title") else 0)
++    top = (B.H - block) / 2 + 10                          # centre the whole chart vertically
+     if p.get("title"):
+-        out.append(text(B.SAFE_X, top + 40, p["title"], 52, B.INK, B.F_BOLD, opacity=ease_out(win(t, 0.1, 0.5))))
+-        top += 110
++        out.append(text(B.SAFE_X, top + 40, p["title"], 56, B.INK, B.F_BOLD, opacity=ease_out(win(t, 0.1, 0.5))))
++        top += 130
+     vmax = float(p.get("max") or max(float(i["value"]) for i in items))
+-    label_w = 430
++    label_w = 520 if few else 430
+     bar_x = B.SAFE_X + label_w
+-    bar_wmax = B.W - B.SAFE_X - bar_x - 230
+-    gap = min(130, (B.H - B.SAFE_Y - top - 40) / max(n, 1))
+-    bh = min(64, gap * 0.55)
++    bar_wmax = B.W - B.SAFE_X - bar_x - 260
+     hi = p.get("highlight")
+     dec = int(p.get("decimals", 0))
+     for i, it in enumerate(items):
+         r = _reveal(t, d, i, n, 0.2, 0.5)
+-        y = top + 40 + i * gap
++        y = top + i * gap
+         col = B.ACCENT if (hi is None or hi == i) else B.INK_3
+         if hi == i:
+             col = B.ACCENT_2
+-        lsize = fit_size(it["label"], 38, label_w - 30, B.F_SEMI)
+-        out.append(text(bar_x - 30, y + bh * 0.68, it["label"], lsize,
++        ls = fit_size(it["label"], lsz, label_w - 40, B.F_SEMI)
++        out.append(text(bar_x - 40, y + bh * 0.5 + ls * 0.36, it["label"], ls,
+                         B.INK if (hi is None or hi == i) else B.INK_2, B.F_SEMI, "end", r))
+         w = bar_wmax * float(it["value"]) / vmax * ease_out(win(t, 0.25 * d * 0.4 + i * 0.5 * d / n + 0.1, 1.1))
+-        out.append(f'<rect x="{bar_x}" y="{y:.1f}" width="{max(w, 0):.1f}" height="{bh:.1f}" rx="4" '
++        out.append(f'<rect x="{bar_x}" y="{y:.1f}" width="{max(w, 0):.1f}" height="{bh:.1f}" rx="6" '
+                    f'fill="{col}" opacity="{r:.3f}"/>')
+         val = it.get("display") or f'{p.get("prefix", "")}{fmt_num(float(it["value"]), dec)}{p.get("suffix", "")}'
+-        out.append(text(bar_x + w + 20, y + bh * 0.68, val, 38, B.INK, B.F_BOLD, opacity=r))
++        out.append(text(bar_x + w + 24, y + bh * 0.5 + vsz * 0.36, val, vsz, B.INK, B.F_BOLD, opacity=r))
+     return "".join(out)
+ 
+ 
+@@ -261,7 +264,7 @@
+     out = []
+     if p.get("title"):
+         out.append(text(CX, B.SAFE_Y + 100, p["title"], 50, B.INK, B.F_BOLD, "middle", ease_out(win(t, 0.1, 0.5))))
+-    bw, bh = min(300, (B.W - 2 * B.SAFE_X - (n - 1) * 70) / n), 170
++    bw, bh = min(360, (B.W - 2 * B.SAFE_X + 120 - (n - 1) * 70) / n), 230
+     total = n * bw + (n - 1) * 70
+     x0, y = CX - total / 2, CY - bh / 2 + 20
+     for i, nd in enumerate(nodes):
+@@ -275,11 +278,11 @@
+                        f'stroke="{B.ACCENT_2}" stroke-width="2" opacity="{0.25 + 0.35 * g:.2f}"/>')
+         out.append(f'<rect x="{x:.1f}" y="{y + (1 - a) * 30:.1f}" width="{bw:.1f}" height="{bh}" rx="12" '
+                    f'fill="{B.BG_2}" stroke="{stroke}" stroke-width="{3 if is_hi else 2}" opacity="{a:.3f}"/>')
+-        ls = fit_size(nd["label"], 40, bw - 30, B.F_BOLD)
+-        out.append(text(x + bw / 2, y + 78 + (1 - a) * 30, nd["label"], ls, B.INK, B.F_BOLD, "middle", a))
++        ls = fit_size(nd["label"], 50, bw - 36, B.F_BOLD)
++        out.append(text(x + bw / 2, y + 100 + (1 - a) * 30, nd["label"], ls, B.INK, B.F_BOLD, "middle", a))
+         if nd.get("sub"):
+-            for j, ln in enumerate(wrap(nd["sub"], 28, bw - 30)[:2]):
+-                out.append(text(x + bw / 2, y + 120 + j * 34 + (1 - a) * 30, ln, 28, B.INK_2, B.F_REG, "middle", a))
++            for j, ln in enumerate(wrap(nd["sub"], 32, bw - 36, balance=True)[:2]):
++                out.append(text(x + bw / 2, y + 152 + j * 40 + (1 - a) * 30, ln, 32, B.INK_2, B.F_REG, "middle", a))
+         if i < n - 1:
+             ap = _reveal(t, d, i + 0.6, n, 0.15, 0.5)
+             ax0, ax1 = x + bw + 10, x + bw + 60
+@@ -289,7 +292,7 @@
+                 out.append(f'<path d="M{ax1 - 12:.1f},{y + bh / 2 - 9:.1f} L{ax1:.1f},{y + bh / 2:.1f} '
+                            f'L{ax1 - 12:.1f},{y + bh / 2 + 9:.1f}" fill="none" stroke="{B.INK_3}" stroke-width="3"/>')
+     if p.get("caption"):
+-        out.append(text(CX, y + bh + 130, p["caption"], 38, B.INK_2, B.F_REG, "middle", ease_out(win(t, d * 0.7, 0.6))))
++        out.append(text(CX, y + bh + 120, p["caption"], 40, B.INK_2, B.F_REG, "middle", ease_out(win(t, d * 0.7, 0.6))))
+     return "".join(out)
+ 
+ 

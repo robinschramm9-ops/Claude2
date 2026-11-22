@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+videos/*/build/
+videos/*/output/*.mp4
+videos/*/state.json

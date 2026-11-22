@@ -1,0 +1,19 @@
+{
+  "topic": "{{TITLE}}",
+  "central_question": "",
+  "editorial": {
+    "what_changes": "",
+    "why_it_matters": "",
+    "who_benefits": "",
+    "who_loses": "",
+    "what_next": ""
+  },
+  "sources": [
+    {"id": "S1", "type": "primary", "publisher": "", "short": "", "title": "", "url": "", "date": "", "accessed": ""}
+  ],
+  "claims": [
+    {"id": "c01", "text": "", "sources": ["S1"], "status": "unverified", "notes": ""}
+  ],
+  "conflicts": [],
+  "open_questions": []
+}

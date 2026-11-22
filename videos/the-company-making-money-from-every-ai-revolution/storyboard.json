@@ -1,0 +1,693 @@
+{
+ "title": "The Company Making Money From Every AI Revolution",
+ "slug": "the-company-making-money-from-every-ai-revolution",
+ "pillar": "02 - The Money Behind Technology",
+ "thesis": "In the AI race, the most dependable winner is not the company with the best model or even the best chip design, but the company that manufactures almost all of them: whoever wins, TSMC gets paid. And beneath TSMC sits a second chokepoint, ASML.",
+ "voice": {
+  "provider": "espeak",
+  "voice": "en-us+m3",
+  "wpm": 148,
+  "pitch": 34
+ },
+ "pronunciations": {
+  "THE NEXT SHIFT": "The Next Shift",
+  "TSMC": "T S M C",
+  "ASML": "A S M L",
+  "CoWoS": "co woss",
+  "EUV": "E U V",
+  "High-NA": "High N A",
+  "AMD": "A M D",
+  "SMIC": "S M I C",
+  "TrendForce": "Trend Force",
+  "Nvidia": "en vidia",
+  "Trainium": "train eeum"
+ },
+ "glossary": [
+  "ASML",
+  "CoWoS",
+  "Epoch",
+  "High-NA",
+  "Nvidia",
+  "SMIC",
+  "Samsung",
+  "TSMC",
+  "Trainium",
+  "TrendForce",
+  "Veldhoven",
+  "chipmaker",
+  "chipmaking",
+  "foundries",
+  "foundry",
+  "lithography",
+  "nanometers"
+ ],
+ "audio": {
+  "seed": 7
+ },
+ "thumbnail": {
+  "headline": "The company behind the AI boom",
+  "accent": [
+   "BEHIND"
+  ],
+  "kicker": "Foundry market share",
+  "big": "70%"
+ },
+ "scenes": [
+  {
+   "id": "s01",
+   "component": "statement",
+   "narration": "Every company in the AI race is trying to beat the others. But there is one company that gets paid no matter who wins.",
+   "params": {
+    "text": "One company gets paid no matter who wins.",
+    "accent": [
+     "paid"
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s02",
+   "component": "hub",
+   "narration": "Nvidia. Google. Amazon. AMD. They compete fiercely to build the chips that power artificial intelligence. Yet the most advanced of those chips are manufactured by the same company.",
+   "params": {
+    "center": "?",
+    "spokes": [
+     "Nvidia",
+     "Google",
+     "Amazon",
+     "AMD"
+    ],
+    "flow": true
+   },
+   "claims": [
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s03",
+   "component": "title",
+   "narration": "Its name isn't printed on the chips, and most people have never heard of it. This is the story of the company at the bottom of the AI stack, and why the entire industry depends on it.",
+   "params": {
+    "kicker": "The Money Behind Technology",
+    "title": "The Company Making Money From Every AI Revolution",
+    "accent": [
+     "Every"
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s04",
+   "component": "big_number",
+   "narration": "It's called TSMC, the Taiwan Semiconductor Manufacturing Company. In 2025, it took in about 122 billion dollars in revenue, up 36 percent in a single year.",
+   "params": {
+    "value": 122.4,
+    "prefix": "$",
+    "suffix": "B",
+    "decimals": 1,
+    "label": "TSMC revenue in 2025",
+    "sub": "Up 36% in a single year",
+    "color": "accent"
+   },
+   "claims": [
+    "c_rev"
+   ]
+  },
+  {
+   "id": "s05",
+   "component": "chapter",
+   "hold": 2.6,
+   "narration": "",
+   "params": {
+    "num": 1,
+    "title": "The toll booth"
+   },
+   "claims": []
+  },
+  {
+   "id": "s06",
+   "component": "chain",
+   "narration": "To understand why, follow a single AI chip. Companies like Nvidia design it. But a design is only a blueprint. Someone has to turn it into billions of transistors on a slice of silicon. For the most advanced AI chips, that someone is almost always TSMC.",
+   "params": {
+    "title": "The life of an AI chip",
+    "nodes": [
+     {
+      "label": "Design",
+      "sub": "Nvidia, Google, AMD"
+     },
+     {
+      "label": "Manufacture",
+      "sub": "TSMC"
+     },
+     {
+      "label": "Package",
+      "sub": "Advanced packaging"
+     },
+     {
+      "label": "Deploy",
+      "sub": "Data centers"
+     }
+    ],
+    "highlight": 1
+   },
+   "claims": [
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s07",
+   "component": "statement",
+   "narration": "This business model is the source of its power. TSMC is a foundry. It doesn't sell chips under its own name, and it doesn't compete with its customers. It makes chips for everyone else.",
+   "params": {
+    "text": "It doesn't sell chips. It makes them for everyone else.",
+    "accent": [
+     "everyone"
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s08",
+   "component": "share",
+   "narration": "And everyone else is almost everyone. According to the research firm TrendForce, TSMC earned close to 70 percent of all foundry revenue in the world in 2025.",
+   "params": {
+    "value": 70,
+    "title": "Global foundry revenue, 2025",
+    "label": "went to TSMC",
+    "sub": "TrendForce estimate: 69.9%"
+   },
+   "claims": [
+    "c_share"
+   ]
+  },
+  {
+   "id": "s09",
+   "component": "bars",
+   "narration": "Its nearest rival, Samsung, had about 7 percent. China's SMIC, about 5. That isn't a lead. It's a different league. Numbers two and three combined don't reach a fifth of TSMC's share.",
+   "params": {
+    "title": "Foundry market share, 2025",
+    "items": [
+     {
+      "label": "TSMC",
+      "value": 69.9,
+      "display": "69.9%"
+     },
+     {
+      "label": "Samsung",
+      "value": 7.2,
+      "display": "7.2%"
+     },
+     {
+      "label": "SMIC",
+      "value": 5.3,
+      "display": "5.3%"
+     }
+    ],
+    "highlight": 0
+   },
+   "claims": [
+    "c_share",
+    "c_samsung",
+    "c_smic"
+   ]
+  },
+  {
+   "id": "s10",
+   "component": "statement",
+   "narration": "Here is why that matters for the AI race. Nvidia might lose ground to Google's custom chips. Amazon might build its own. A startup might design something better.",
+   "params": {
+    "text": "Nvidia? Google? Amazon? A startup?",
+    "accent": [
+     "startup?"
+    ]
+   },
+   "claims": [
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s10b",
+   "component": "statement",
+   "narration": "In almost every one of those scenarios, the order still lands at TSMC.",
+   "params": {
+    "text": "Whoever wins, the chips still have to be made.",
+    "accent": [
+     "made."
+    ]
+   },
+   "claims": [
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s11",
+   "component": "big_number",
+   "narration": "You can see the shift in TSMC's own numbers. In 2025, high-performance computing, the category that includes AI accelerators, made up 58 percent of its revenue.",
+   "params": {
+    "value": 58,
+    "suffix": "%",
+    "label": "of TSMC revenue: high-performance computing",
+    "sub": "Includes AI accelerators, server and PC processors",
+    "color": "accent"
+   },
+   "claims": [
+    "c_hpc"
+   ]
+  },
+  {
+   "id": "s12",
+   "component": "bars",
+   "narration": "That's up from 51 percent a year earlier. Smartphones, the business that built the modern TSMC, fell to 29 percent. Everything else, from cars to connected devices, adds up to about 13 percent.",
+   "params": {
+    "title": "TSMC revenue by platform, 2025",
+    "items": [
+     {
+      "label": "High-perf. computing",
+      "value": 58,
+      "display": "58%"
+     },
+     {
+      "label": "Smartphones",
+      "value": 29,
+      "display": "29%"
+     },
+     {
+      "label": "Everything else",
+      "value": 13,
+      "display": "13%"
+     }
+    ],
+    "highlight": 0
+   },
+   "claims": [
+    "c_hpc",
+    "c_phone",
+    "c_other"
+   ]
+  },
+  {
+   "id": "s13",
+   "component": "chapter",
+   "hold": 2.6,
+   "narration": "",
+   "params": {
+    "num": 2,
+    "title": "Selling shovels"
+   },
+   "claims": []
+  },
+  {
+   "id": "s14",
+   "component": "statement",
+   "narration": "There's an old saying about gold rushes. The surest way to get rich isn't digging for gold. It's selling the shovels.",
+   "params": {
+    "text": "In a gold rush, sell shovels.",
+    "accent": [
+     "shovels."
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s15",
+   "component": "big_number",
+   "narration": "Nvidia is often called the shovel seller of AI, and it has been spectacularly successful. For its fiscal year 2026, Nvidia reported nearly 216 billion dollars in revenue.",
+   "params": {
+    "value": 215.9,
+    "prefix": "$",
+    "suffix": "B",
+    "decimals": 1,
+    "label": "Nvidia revenue, fiscal 2026",
+    "sub": "Data center alone: $193.7B",
+    "color": "lime"
+   },
+   "claims": [
+    "c_nvda"
+   ]
+  },
+  {
+   "id": "s16",
+   "component": "hub",
+   "narration": "But Nvidia designs its chips. It doesn't manufacture them. TSMC does. So it is with Google's custom AI chips, Amazon's Trainium, and AMD's accelerators. The shovel sellers all buy from the same shovel factory.",
+   "params": {
+    "title": "Who manufactures the shovels?",
+    "center": "TSMC",
+    "spokes": [
+     "Nvidia",
+     "Google",
+     "Amazon",
+     "AMD"
+    ]
+   },
+   "claims": [
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s17",
+   "component": "chain",
+   "narration": "And the dependence goes beyond the silicon itself. Modern AI chips need an advanced packaging step called CoWoS, which places the processor right next to high-speed memory.",
+   "params": {
+    "title": "Advanced packaging",
+    "nodes": [
+     {
+      "label": "Processor",
+      "sub": "Made by TSMC"
+     },
+     {
+      "label": "+ Memory",
+      "sub": "High-bandwidth"
+     },
+     {
+      "label": "CoWoS",
+      "sub": "Packaged together"
+     }
+    ],
+    "highlight": 2
+   },
+   "claims": [
+    "c_cowos_def"
+   ]
+  },
+  {
+   "id": "s17b",
+   "component": "dots",
+   "narration": "By one estimate from the research group Epoch AI, just four companies used more than 90 percent of the world's CoWoS capacity in 2025.",
+   "params": {
+    "total": 10,
+    "highlight": 9,
+    "label": "90%+ of advanced AI packaging capacity",
+    "sub": "used by Nvidia, Google, AMD and Amazon in 2025 (Epoch AI estimate)"
+   },
+   "claims": [
+    "c_cowos",
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s18",
+   "component": "statement",
+   "narration": "That packaging capacity is one of the tightest bottlenecks in the industry. Which means TSMC doesn't just make the chips. In practice, it helps decide how many of them the world can have.",
+   "params": {
+    "text": "TSMC doesn't just make the chips. It helps decide how many exist.",
+    "accent": [
+     "how",
+     "many"
+    ]
+   },
+   "claims": [
+    "c_cowos_def"
+   ]
+  },
+  {
+   "id": "s19",
+   "component": "chapter",
+   "hold": 2.6,
+   "narration": "",
+   "params": {
+    "num": 3,
+    "title": "The machine behind the machine"
+   },
+   "claims": []
+  },
+  {
+   "id": "s20",
+   "component": "statement",
+   "narration": "But even TSMC depends on someone. To print the tiniest features on a chip, it uses extreme ultraviolet lithography. And only one company in the world sells those machines: ASML, in the Netherlands.",
+   "params": {
+    "text": "Only one company sells the machines that print the most advanced chips.",
+    "accent": [
+     "one"
+    ],
+    "sub": "ASML, Veldhoven, the Netherlands"
+   },
+   "claims": [
+    "c_asml_sole"
+   ]
+  },
+  {
+   "id": "s21",
+   "component": "big_number",
+   "narration": "Its newest machines, called High-NA EUV, reportedly cost around 380 to 400 million dollars each. That is the price of a single tool.",
+   "params": {
+    "value": 380,
+    "prefix": "$",
+    "suffix": "M+",
+    "label": "Reported price of one High-NA EUV machine",
+    "sub": "Press reports range from $380M to $400M",
+    "color": "accent"
+   },
+   "claims": [
+    "c_highna"
+   ]
+  },
+  {
+   "id": "s22",
+   "component": "chain",
+   "narration": "So the real structure of the AI economy looks like this. At the top, the AI products everyone talks about. Below them, the chip designers. Below them, TSMC. And underneath it all, machines from a single Dutch company.",
+   "params": {
+    "title": "The AI stack, from the bottom up",
+    "nodes": [
+     {
+      "label": "ASML",
+      "sub": "Lithography machines"
+     },
+     {
+      "label": "TSMC",
+      "sub": "Manufacturing"
+     },
+     {
+      "label": "Designers",
+      "sub": "Nvidia, Google, AMD"
+     },
+     {
+      "label": "AI products",
+      "sub": "Chatbots, agents, apps"
+     }
+    ],
+    "highlight": 1,
+    "caption": "Every layer depends on the one below it."
+   },
+   "claims": [
+    "c_asml_sole",
+    "c_customers"
+   ]
+  },
+  {
+   "id": "s23",
+   "component": "chapter",
+   "hold": 2.6,
+   "narration": "",
+   "params": {
+    "num": 4,
+    "title": "The single point of failure"
+   },
+   "claims": []
+  },
+  {
+   "id": "s24",
+   "component": "share",
+   "narration": "Now for the part that keeps governments awake at night. A 2021 study by the Semiconductor Industry Association and Boston Consulting Group found that 92 percent of the world's most advanced chipmaking capacity, below 10 nanometers, was in Taiwan.",
+   "params": {
+    "value": 92,
+    "title": "Leading-edge capacity (below 10nm)",
+    "label": "was located in Taiwan",
+    "sub": "SIA & BCG, 2021. Broader definitions of 'advanced' give lower shares."
+   },
+   "claims": [
+    "c_taiwan"
+   ]
+  },
+  {
+   "id": "s25",
+   "component": "statement",
+   "narration": "Definitions vary, and that share is shifting. But the point stands.",
+   "params": {
+    "text": "Definitions vary. The point stands.",
+    "accent": [
+     "stands."
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s25b",
+   "component": "statement",
+   "narration": "A huge part of the AI economy rests on factories on one island, in an active earthquake zone, at the center of one of the world's most sensitive geopolitical disputes.",
+   "params": {
+    "text": "A huge part of the AI economy rests on one island.",
+    "accent": [
+     "one",
+     "island."
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s26",
+   "component": "big_number",
+   "narration": "Which is why the map is starting to change. In March 2025, TSMC said it expects its total investment in the United States to reach 165 billion dollars.",
+   "params": {
+    "value": 165,
+    "prefix": "$",
+    "suffix": "B",
+    "label": "TSMC's planned total US investment",
+    "color": "accent"
+   },
+   "claims": [
+    "c_us"
+   ]
+  },
+  {
+   "id": "s26b",
+   "component": "timeline",
+   "narration": "Its first Arizona factory entered volume production in late 2024. The new plan adds more factories, two advanced packaging plants and a research center.",
+   "params": {
+    "title": "TSMC in Arizona",
+    "events": [
+     {
+      "year": 2024,
+      "label": "First fab in volume production"
+     },
+     {
+      "year": 2025,
+      "label": "US plan raised to $165B"
+     },
+     {
+      "year": "Next",
+      "label": "More fabs, packaging plants, R&D center"
+     }
+    ]
+   },
+   "claims": [
+    "c_az1",
+    "c_us"
+   ]
+  },
+  {
+   "id": "s27",
+   "component": "statement",
+   "narration": "But notice who is building those factories. It's still TSMC. Moving production closer to customers reduces one risk. It doesn't change who the industry depends on.",
+   "params": {
+    "text": "Diversifying the map doesn't diversify the dependence.",
+    "accent": [
+     "dependence."
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s28",
+   "component": "chapter",
+   "hold": 2.6,
+   "narration": "",
+   "params": {
+    "num": 5,
+    "title": "Who wins, who loses"
+   },
+   "claims": []
+  },
+  {
+   "id": "s29",
+   "component": "versus",
+   "narration": "So who benefits? TSMC and ASML collect something like a toll on nearly every advanced AI chip, no matter whose design wins. Who loses? Rival manufacturers fighting over what's left of the market, and every chip designer that has to wait in line for capacity.",
+   "params": {
+    "left": {
+     "label": "Benefits",
+     "value": "TSMC + ASML",
+     "note": "Paid on nearly every advanced chip, whoever designs it",
+     "color": "lime"
+    },
+    "right": {
+     "label": "Under pressure",
+     "value": "Everyone else",
+     "note": "Rival foundries, and designers waiting for capacity",
+     "color": "warn"
+    }
+   },
+   "claims": [
+    "c_share",
+    "c_cowos"
+   ]
+  },
+  {
+   "id": "s30",
+   "component": "big_number",
+   "narration": "And TSMC is betting big that this lasts. It plans to spend between 52 and 56 billion dollars on capacity in 2026.",
+   "params": {
+    "value": 56,
+    "display": "$52–56B",
+    "label": "TSMC planned capital spending, 2026",
+    "sub": "A record bet that AI demand holds",
+    "color": "lime"
+   },
+   "claims": [
+    "c_capex26"
+   ]
+  },
+  {
+   "id": "s30b",
+   "component": "statement",
+   "narration": "Its chief executive has reportedly admitted to being very nervous about whether AI demand will hold.",
+   "params": {
+    "text": "Even its CEO is reportedly nervous about whether demand will hold.",
+    "accent": [
+     "nervous"
+    ]
+   },
+   "claims": [
+    "c_nervous"
+   ]
+  },
+  {
+   "id": "s31",
+   "component": "list",
+   "narration": "So here is what to watch. First, whether AI demand justifies record spending on new factories. Second, whether packaging capacity keeps up. Third, whether factories outside Taiwan can match its output. And fourth, whether any rival can close the gap.",
+   "params": {
+    "title": "What to watch next",
+    "items": [
+     "Does AI demand justify record factory spending?",
+     "Can packaging capacity keep up?",
+     "Can fabs outside Taiwan match its output?",
+     "Can any rival close the gap?"
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s32",
+   "component": "statement",
+   "narration": "The AI race will produce winners and losers among the companies we talk about every day.",
+   "params": {
+    "text": "The AI race will have winners and losers.",
+    "accent": [
+     "winners",
+     "losers."
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s32b",
+   "component": "statement",
+   "narration": "But the most dependable money may not go to whoever builds the smartest model. It may go to whoever owns the bottleneck. Right now, that's a chipmaker most people have never heard of.",
+   "params": {
+    "text": "The most dependable money goes to whoever owns the bottleneck.",
+    "accent": [
+     "bottleneck."
+    ]
+   },
+   "claims": []
+  },
+  {
+   "id": "s33",
+   "component": "end",
+   "hold": 5,
+   "narration": "This is THE NEXT SHIFT. Understand tomorrow before it happens.",
+   "params": {
+    "next": "Who controls the future of AI?"
+   },
+   "claims": []
+  }
+ ]
+}

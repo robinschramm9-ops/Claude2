@@ -1,0 +1,15 @@
+{
+  "title": "{{TITLE}}",
+  "slug": "{{SLUG}}",
+  "pillar": "",
+  "thesis": "",
+  "voice": {"provider": "espeak", "voice": "en-us+m3", "wpm": 150},
+  "pronunciations": {"THE NEXT SHIFT": "The Next Shift"},
+  "glossary": [],
+  "audio": {"seed": 7},
+  "thumbnail": {"headline": "", "accent": [], "kicker": "", "big": ""},
+  "scenes": [
+    {"id": "s01", "component": "statement", "narration": "", "params": {"text": "", "accent": []}, "claims": []},
+    {"id": "s99", "component": "end", "narration": "This is THE NEXT SHIFT. Understand tomorrow before it happens.", "params": {}, "claims": []}
+  ]
+}

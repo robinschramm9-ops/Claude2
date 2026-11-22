@@ -70,8 +70,10 @@ class SoftPip:
         o.append('<ellipse cx="-34" cy="-150" rx="12" ry="26" fill="#fff" opacity="0.25" transform="rotate(24 -34 -150)"/>')
         o.append(_eye(-10, -132, 14, 17, p, "#2E2F2C", None, "#8DBF4C"))
         o.append(_eye(28, -134, 16, 19, p, "#2E2F2C", None, "#8DBF4C"))
-        o.append('<circle cx="28" cy="-134" r="22" fill="none" stroke="#C9A84E" stroke-width="3.5"/>'
-                 '<path d="M48,-124 Q60,-92 46,-66" fill="none" stroke="#C9A84E" stroke-width="2" stroke-linecap="round"/>')
+        mdy, mrot = p.extra.get("monocle_drop", (0, 0))
+        o.append(f'<g transform="translate(0 {mdy:.1f}) rotate({mrot:.1f} 28 -134)">'
+                 '<circle cx="28" cy="-134" r="22" fill="none" stroke="#C9A84E" stroke-width="3.5"/></g>'
+                 f'<path d="M48,-124 Q{60 + mdy * 0.1:.1f},{-92 + mdy * 0.5:.1f} 46,-66" fill="none" stroke="#C9A84E" stroke-width="2" stroke-linecap="round"/>')
         o.append(_brow(-10, -160, 20, p.brow, -1, "#4E6B2A", 5))
         o.append(_brow(28, -166, 22, p.brow, 1, "#4E6B2A", 5))
         o.append(_mouth(10, -100, 26, p.mouth, "#4E6B2A", "#6E3B3B"))

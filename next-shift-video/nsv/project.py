@@ -24,6 +24,8 @@ class Project:
         self.out = self.dir / "output"
         self.build.mkdir(exist_ok=True)
         self.out.mkdir(exist_ok=True)
+        if self.path("storyboard.json").exists():
+            self.storyboard                      # applies the storyboard's theme for every command
 
     # files ------------------------------------------------------------------
     def path(self, name):
@@ -44,7 +46,11 @@ class Project:
 
     @property
     def storyboard(self):
-        return self.load("storyboard.json")
+        sb = self.load("storyboard.json")
+        from . import brand
+        if brand.THEME != sb.get("theme", "dark"):
+            brand.apply_theme(sb.get("theme", "dark"))   # every command renders in the storyboard's theme
+        return sb
 
     # state & approvals --------------------------------------------------------
     def _state_path(self):

@@ -25,7 +25,8 @@ def _frame_svg(tl, starts, T, watermark=False):
 
 def _render_chunk(args):
     import cairosvg
-    tl, f0, f1, fps, w, h, out, crf, preset, wm = args
+    tl, f0, f1, fps, w, h, out, crf, preset, wm, theme = args
+    B.apply_theme(theme)
     starts = [s["start"] for s in tl]
     ff = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "image2pipe", "-framerate", str(fps),
                            "-c:v", "png", "-i", "-", "-c:v", "libx264", "-preset", preset, "-crf", str(crf),
@@ -65,7 +66,7 @@ def render_video(project, tl, total, audio_path, draft=False, workers=None, burn
         f.unlink()
     bounds = [round(i * nframes / n_chunks) for i in range(n_chunks + 1)]
     jobs = [(tl, bounds[i], bounds[i + 1], fps, w, h, str(seg_dir / f"seg_{i:03d}.mp4"),
-             23 if draft else 16, "veryfast" if draft else "medium", draft)
+             23 if draft else 16, "veryfast" if draft else "medium", draft, B.THEME)
             for i in range(n_chunks) if bounds[i + 1] > bounds[i]]
     t0 = time.time()
     log(f"rendering {nframes} frames at {w}x{h}@{fps} on {workers} workers...")

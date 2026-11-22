@@ -32,6 +32,14 @@ def component(name, required=(), optional=()):
 CX, CY = B.W / 2, B.H / 2
 
 
+def soft_card(x, y, w, h, r, fill=None, opacity=1.0):
+    """White-theme card: diffuse shadow, no outline."""
+    fill = fill or B.BG_2
+    return (f'<ellipse cx="{x + w / 2:.1f}" cy="{y + h + 10:.1f}" rx="{w * 0.5:.1f}" ry="{max(14, h * 0.12):.1f}" '
+            f'fill="url(#softshadow)" opacity="{opacity:.2f}"/>'
+            f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{r:.1f}" fill="{fill}" opacity="{opacity:.3f}"/>')
+
+
 def _reveal(t, d, i, n, start=0.25, span=0.55):
     """Stagger index i of n across [start, start+span] of the scene (fractions of d)."""
     if n <= 1:
@@ -41,7 +49,8 @@ def _reveal(t, d, i, n, start=0.25, span=0.55):
 
 
 def _kinetic_lines(lines, x, y0, size, lh, t, start, per_word, family, accent=(), anchor="middle",
-                   color=B.INK, accent_color=B.ACCENT):
+                   color=None, accent_color=None):
+    color, accent_color = color or B.INK, accent_color or B.ACCENT
     """Word-by-word rise-in typography. Returns (svg, end_time)."""
     out, k = [], 0
     accent_l = {a.lower().strip(".,!?:;") for a in accent}
@@ -72,7 +81,7 @@ def chapter(p, t, d):
     a = ease_out(win(t, 0.1, 0.6))
     line = ease_in_out(win(t, 0.2, 0.9))
     num = text(B.SAFE_X, CY - 70, f"{int(p['num']):02d}", 140, B.ACCENT, B.F_BOLD, opacity=a)
-    bar = f'<rect x="{B.SAFE_X}" y="{CY - 30}" width="{600 * line:.1f}" height="3" fill="{B.ACCENT}"/>'
+    bar = f'<rect x="{B.SAFE_X}" y="{CY - 30}" width="{600 * line:.1f}" height="{6 if B.SOFT else 3}" rx="3" fill="{B.ACCENT}"/>'
     size = fit_size(p["title"], 88, B.W - 2 * B.SAFE_X, B.F_BOLD)
     tl, _ = _kinetic_lines([p["title"]], B.SAFE_X, CY + 80, size, size * 1.1, t, 0.5, 0.12,
                            B.F_BOLD, anchor="start")
@@ -129,7 +138,7 @@ def big_number(p, t, d):
     out.append(text(CX, CY + 140, p["label"], 44, B.INK, B.F_SEMI, "middle", la))
     lw = text_width(p["label"], 44, B.F_SEMI)
     u = ease_in_out(win(t, 1.0, 0.8))
-    out.append(f'<rect x="{CX - lw / 2:.1f}" y="{CY + 165}" width="{lw * u:.1f}" height="4" fill="{B.ACCENT}"/>')
+    out.append(f'<rect x="{CX - lw / 2:.1f}" y="{CY + 165}" width="{lw * u:.1f}" height="{6 if B.SOFT else 4}" rx="3" fill="{B.ACCENT}"/>')
     if p.get("sub"):
         sa = ease_out(win(t, 1.4, 0.6))
         for i, sl in enumerate(wrap(p["sub"], 34, 1300)):
@@ -164,7 +173,7 @@ def bars(p, t, d):
         out.append(text(bar_x - 30, y + bh * 0.68, it["label"], lsize,
                         B.INK if (hi is None or hi == i) else B.INK_2, B.F_SEMI, "end", r))
         w = bar_wmax * float(it["value"]) / vmax * ease_out(win(t, 0.25 * d * 0.4 + i * 0.5 * d / n + 0.1, 1.1))
-        out.append(f'<rect x="{bar_x}" y="{y:.1f}" width="{max(w, 0):.1f}" height="{bh:.1f}" rx="4" '
+        out.append(f'<rect x="{bar_x}" y="{y:.1f}" width="{max(w, 0):.1f}" height="{bh:.1f}" rx="{bh / 2 if B.SOFT else 4:.1f}" '
                    f'fill="{col}" opacity="{r:.3f}"/>')
         val = it.get("display") or f'{p.get("prefix", "")}{fmt_num(float(it["value"]), dec)}{p.get("suffix", "")}'
         out.append(text(bar_x + w + 20, y + bh * 0.68, val, 38, B.INK, B.F_BOLD, opacity=r))
@@ -179,7 +188,7 @@ def share(p, t, d):
     circ = 2 * math.pi * r
     arc = circ * v / 100 * prog
     out = [f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{B.GRID}" stroke-width="44"/>',
-           f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{B.ACCENT}" stroke-width="44" '
+           f'<circle cx="{cx}" cy="{cy}" r="{r}" fill="none" stroke="{B.ACCENT}" stroke-width="44" stroke-linecap="{"round" if B.SOFT else "butt"}" '
            f'stroke-dasharray="{arc:.1f} {circ:.1f}" transform="rotate(-90 {cx} {cy})"/>',
            text(cx, cy + 40, f"{v * prog:.0f}%", 120, B.INK, B.F_BOLD, "middle")]
     x = cx + r + 140
@@ -269,12 +278,16 @@ def chain(p, t, d):
         x = x0 + i * (bw + 70)
         is_hi = hi == i
         stroke = B.ACCENT_2 if is_hi else B.ACCENT
-        if is_hi and a > 0.9:  # glow ring
+        if B.SOFT:
+            out.append(soft_card(x, y + (1 - a) * 30, bw, bh, min(bh / 2, B.CARD_RADIUS),
+                                 "#EEF6E2" if is_hi else None, a))
+        elif is_hi and a > 0.9:  # glow ring
             g = 0.5 + 0.5 * math.sin(t * 3)
             out.append(f'<rect x="{x - 10}" y="{y - 10}" width="{bw + 20}" height="{bh + 20}" rx="18" fill="none" '
                        f'stroke="{B.ACCENT_2}" stroke-width="2" opacity="{0.25 + 0.35 * g:.2f}"/>')
-        out.append(f'<rect x="{x:.1f}" y="{y + (1 - a) * 30:.1f}" width="{bw:.1f}" height="{bh}" rx="12" '
-                   f'fill="{B.BG_2}" stroke="{stroke}" stroke-width="{3 if is_hi else 2}" opacity="{a:.3f}"/>')
+        if not B.SOFT:
+            out.append(f'<rect x="{x:.1f}" y="{y + (1 - a) * 30:.1f}" width="{bw:.1f}" height="{bh}" rx="12" '
+                       f'fill="{B.BG_2}" stroke="{stroke}" stroke-width="{3 if is_hi else 2}" opacity="{a:.3f}"/>')
         ls = fit_size(nd["label"], 40, bw - 30, B.F_BOLD)
         out.append(text(x + bw / 2, y + 78 + (1 - a) * 30, nd["label"], ls, B.INK, B.F_BOLD, "middle", a))
         if nd.get("sub"):
@@ -316,8 +329,11 @@ def hub(p, t, d):
             px, py = lerp(x, cx, ph), lerp(y, cy, ph)
             out.append(f'<circle cx="{px:.1f}" cy="{py:.1f}" r="6" fill="{B.ACCENT_2}" opacity="{0.9 * (1 - ph * 0.5):.2f}"/>')
         w = text_width(s, 32, B.F_SEMI) + 48
-        out.append(f'<rect x="{lx - w / 2:.1f}" y="{ly - 32:.1f}" width="{w:.1f}" height="64" rx="32" '
-                   f'fill="{B.BG_2}" stroke="{B.ACCENT}" stroke-width="2" opacity="{a:.2f}"/>')
+        if B.SOFT:
+            out.append(soft_card(lx - w / 2, ly - 32, w, 64, 32, None, a))
+        else:
+            out.append(f'<rect x="{lx - w / 2:.1f}" y="{ly - 32:.1f}" width="{w:.1f}" height="64" rx="32" '
+                       f'fill="{B.BG_2}" stroke="{B.ACCENT}" stroke-width="2" opacity="{a:.2f}"/>')
         out.append(text(lx, ly + 11, s, 32, B.INK, B.F_SEMI, "middle", a))
     cr = 120 * ca
     out.append(f'<circle cx="{cx}" cy="{cy}" r="{max(cr, 0):.1f}" fill="{B.ACCENT}"/>')

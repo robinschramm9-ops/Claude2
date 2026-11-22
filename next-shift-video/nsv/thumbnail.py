@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from . import brand as B
-from .compose import _DEFS, background
+from .compose import background, defs
 from .fx import esc, fit_size, text, text_width, wrap
 
 
@@ -37,6 +37,6 @@ def render_thumbnail(project, path):
     if big:
         out.append(text(B.W - 120, B.H / 2 + bs * 0.35, big, bs, B.ACCENT, B.F_BOLD, "end"))
     svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{B.W}" height="{B.H}" viewBox="0 0 {B.W} {B.H}">'
-           f'{_DEFS}{"".join(out)}</svg>')
+           f'{defs()}{"".join(out)}</svg>')
     cairosvg.svg2png(bytestring=svg.encode(), write_to=str(path), output_width=1280, output_height=720)
     return path

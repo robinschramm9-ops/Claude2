@@ -45,10 +45,12 @@ def esc(s) -> str:
     return escape(str(s), {'"': "&quot;"})
 
 
-def text(x, y, s, size, fill=brand.INK, family=brand.F_REG, anchor="start",
+def text(x, y, s, size, fill=None, family=None, anchor="start",
          opacity=1.0, spacing=0, extra=""):
     if opacity <= 0.001:
         return ""
+    fill = fill or brand.INK            # resolved at call time so themes apply
+    family = family or brand.F_REG
     ls = f' letter-spacing="{spacing}"' if spacing else ""
     return (f'<text x="{x:.1f}" y="{y:.1f}" font-family="{family}" font-size="{size}" '
             f'fill="{fill}" text-anchor="{anchor}" opacity="{opacity:.3f}"{ls} {extra}>'
@@ -98,7 +100,8 @@ def _pil_font(family: str, size: int):
     return None
 
 
-def text_width(s: str, size: int, family: str = brand.F_REG, spacing: float = 0) -> float:
+def text_width(s: str, size: int, family: str | None = None, spacing: float = 0) -> float:
+    family = family or brand.F_REG
     f = _pil_font(family, int(size))
     if f is None:  # rough fallback if Inter is missing
         w = 0.56 * size * len(s)
@@ -107,7 +110,8 @@ def text_width(s: str, size: int, family: str = brand.F_REG, spacing: float = 0)
     return w + spacing * max(len(s) - 1, 0)
 
 
-def wrap(s: str, size: int, max_w: float, family: str = brand.F_REG, balance: bool = False) -> list[str]:
+def wrap(s: str, size: int, max_w: float, family: str | None = None, balance: bool = False) -> list[str]:
+    family = family or brand.F_REG
     """Greedy word wrap. balance=True evens out line lengths (no orphaned last word)."""
     lines = _greedy(s, size, max_w, family)
     if balance and len(lines) > 1:
@@ -136,7 +140,8 @@ def _greedy(s, size, max_w, family):
     return lines
 
 
-def fit_size(s: str, size: int, max_w: float, family: str, min_size: int = brand.MIN_TEXT_PX) -> int:
+def fit_size(s: str, size: int, max_w: float, family: str, min_size: int | None = None) -> int:
+    min_size = min_size or brand.MIN_TEXT_PX
     """Shrink a single-line string until it fits max_w (never below min_size)."""
     while size > min_size and text_width(s, size, family) > max_w:
         size -= 2

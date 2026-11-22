@@ -36,7 +36,8 @@ def build(project, durations: dict) -> tuple[list, float]:
                    "start": round(t, 3), "dur": round(d, 3),
                    "vo_start": round(t + LEAD_IN, 3) if vd else None, "vo_dur": round(vd, 3),
                    "narration": sc.get("narration", ""), "chapter": chapter if sc["component"] != "chapter" else None,
-                   "source_labels": labels})
+                   "source_labels": labels, "pip": sc.get("pip"),
+                   "vo_path": str(project.build / "vo" / f"{sc['id']}.wav") if vd else None})
         t += d
     (project.build / "timeline.json").write_text(json.dumps(tl, indent=1))
     return tl, round(t, 3)

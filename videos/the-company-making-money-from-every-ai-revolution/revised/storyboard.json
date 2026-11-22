@@ -4,24 +4,21 @@
  "pillar": "02 - The Money Behind Technology",
  "thesis": "TSMC is positioned to profit from the growth of AI chips largely regardless of which designer wins: the two leading merchant AI-chip designers, Nvidia and AMD, both document their reliance on it; it earns about 70% of foundry revenue; and high-performance computing is now 58% of its revenue. This is an advantage, not a guarantee: Nvidia also uses Samsung, Tesla chose Samsung, and TSMC is exposed to whether AI spending keeps growing.",
  "voice": {
-  "provider": "espeak",
+  "provider": "elevenlabs",
   "espeak": {
    "voice": "en-us+m3",
    "wpm": 148,
    "pitch": 34
   },
   "elevenlabs": {
-   "voice_id": "",
+   "voice_id": "GwaSlBgu1okDU38ZSzyb",
    "model": "eleven_multilingual_v2",
-   "stability": 0.5,
-   "similarity": 0.75,
-   "style": 0.1,
-   "speed": 1.0,
-   "seed": 7,
+   "stability": 0.38,
+   "similarity": 0.8,
+   "style": 0.35,
+   "speed": 1.08,
    "pronunciations": {
-    "THE NEXT SHIFT": "The Next Shift",
-    "CoWoS": "co-woss",
-    "High-NA": "High N.A."
+    "THE NEXT SHIFT": "The Next Shift"
    }
   },
   "openai": {
@@ -95,7 +92,14 @@
      "profit,"
     ]
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s02",
@@ -151,7 +155,14 @@
    },
    "claims": [
     "c_rev"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s05",
@@ -162,7 +173,14 @@
     "title": "One factory, many rivals"
    },
    "claims": [],
-   "hold": 2.6
+   "hold": 2.6,
+   "pip": {
+    "x": 1600,
+    "y": 900,
+    "s": 1.0,
+    "facing": -1,
+    "pose": "hello"
+   }
   },
   {
    "id": "s06",
@@ -300,7 +318,14 @@
    "claims": [
     "c_amd_tsmc",
     "c_nvda_tsmc"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "talk"
+   }
   },
   {
    "id": "s11",
@@ -315,7 +340,14 @@
    },
    "claims": [
     "c_hpc"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s12",
@@ -357,7 +389,14 @@
     "title": "Selling shovels"
    },
    "claims": [],
-   "hold": 2.6
+   "hold": 2.6,
+   "pip": {
+    "x": 1600,
+    "y": 900,
+    "s": 1.0,
+    "facing": -1,
+    "pose": "hello"
+   }
   },
   {
    "id": "s14",
@@ -369,7 +408,14 @@
      "shovels."
     ]
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "think"
+   }
   },
   {
    "id": "s15",
@@ -386,7 +432,14 @@
    },
    "claims": [
     "c_nvda"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s15b",
@@ -452,7 +505,14 @@
      "growing."
     ]
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "skeptical"
+   }
   },
   {
    "id": "s17",
@@ -507,7 +567,14 @@
    },
    "claims": [
     "c_cowos_bottleneck"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "think"
+   }
   },
   {
    "id": "s19",
@@ -518,7 +585,14 @@
     "title": "The machine behind the machine"
    },
    "claims": [],
-   "hold": 2.6
+   "hold": 2.6,
+   "pip": {
+    "x": 1600,
+    "y": 900,
+    "s": 1.0,
+    "facing": -1,
+    "pose": "hello"
+   }
   },
   {
    "id": "s20",
@@ -533,7 +607,14 @@
    },
    "claims": [
     "c_asml_sole"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "talk"
+   }
   },
   {
    "id": "s21",
@@ -549,7 +630,14 @@
    },
    "claims": [
     "c_highna"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s22",
@@ -593,7 +681,14 @@
     "title": "Concentrated risk"
    },
    "claims": [],
-   "hold": 2.6
+   "hold": 2.6,
+   "pip": {
+    "x": 1600,
+    "y": 900,
+    "s": 1.0,
+    "facing": -1,
+    "pose": "hello"
+   }
   },
   {
    "id": "s24",
@@ -644,7 +739,14 @@
      "island."
     ]
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "think"
+   }
   },
   {
    "id": "s26",
@@ -659,7 +761,14 @@
    },
    "claims": [
     "c_us"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s26b",
@@ -696,7 +805,14 @@
     "title": "Who profits, who loses, who controls"
    },
    "claims": [],
-   "hold": 2.6
+   "hold": 2.6,
+   "pip": {
+    "x": 1600,
+    "y": 900,
+    "s": 1.0,
+    "facing": -1,
+    "pose": "hello"
+   }
   },
   {
    "id": "s29",
@@ -737,7 +853,14 @@
    "claims": [
     "c_tesla_samsung",
     "c_nvda_tsmc"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s29b",
@@ -750,7 +873,14 @@
     ],
     "sub": "Machines. Factories. Packaging lines."
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "talk"
+   }
   },
   {
    "id": "s30",
@@ -765,7 +895,14 @@
    },
    "claims": [
     "c_capex26"
-   ]
+   ],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "point"
+   }
   },
   {
    "id": "s31",
@@ -791,7 +928,14 @@
      "continue."
     ]
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "skeptical"
+   }
   },
   {
    "id": "s32b",
@@ -803,7 +947,14 @@
      "bottleneck."
     ]
    },
-   "claims": []
+   "claims": [],
+   "pip": {
+    "x": 1720,
+    "y": 1000,
+    "s": 0.8,
+    "facing": -1,
+    "pose": "talk"
+   }
   },
   {
    "id": "s33",
@@ -813,7 +964,15 @@
     "next": "Who controls the future of AI?"
    },
    "claims": [],
-   "hold": 5
+   "hold": 5,
+   "pip": {
+    "x": 1500,
+    "y": 1000,
+    "s": 0.9,
+    "facing": -1,
+    "pose": "hello"
+   }
   }
- ]
+ ],
+ "theme": "white"
 }
